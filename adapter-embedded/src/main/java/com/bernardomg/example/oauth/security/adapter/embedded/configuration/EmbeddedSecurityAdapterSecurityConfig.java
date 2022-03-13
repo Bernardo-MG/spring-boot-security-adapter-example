@@ -41,8 +41,8 @@ public class EmbeddedSecurityAdapterSecurityConfig
             throws Exception {
 
         auth.inMemoryAuthentication()
-            .withUser("user")
-            .password("{noop}password")
+            .withUser("test-user")
+            .password("{noop}1234")
             .authorities("read")
             .and()
             .withUser("admin")
