@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.bernardomg.example.oauth.security.adapter.keycloak.configuration.SecurityAdapterConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.bernardomg.example.security.adapter.configuration.SecurityAdapterConfig
