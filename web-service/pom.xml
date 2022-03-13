@@ -37,19 +37,20 @@
       <h2.version>1.4.200</h2.version>
       <hamcrest.version>2.2</hamcrest.version>
       <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-      <hibernate.version>5.5.6.Final</hibernate.version>
+      <hibernate.version>5.6.5.Final</hibernate.version>
       <hikari.version>3.4.5</hikari.version>
-      <jackson.version>2.12.4</jackson.version>
+      <jackson.version>2.13.2</jackson.version>
+      <jakarta.xml.version>2.3.3</jakarta.xml.version>
+      <jaxb.version>2.3.3-b02</jaxb.version>
       <jpa.version>2.2</jpa.version>
       <jsonpath.version>2.6.0</jsonpath.version>
       <junit.jupiter.version>5.8.2</junit.jupiter.version>
-      <keycloak.version>17.0.0</keycloak.version>
       <liquibase.version>4.8.0</liquibase.version>
       <log4j.version>2.17.1</log4j.version>
       <lombok.version>1.18.22</lombok.version>
       <mockito.version>4.3.1</mockito.version>
       <slf4j.version>1.7.36</slf4j.version>
-      <spring.boot.version>2.6.3</spring.boot.version>
+      <spring.boot.version>2.6.4</spring.boot.version>
       <spring.data.version>2021.1.2</spring.data.version>
       <spring.version>5.3.16</spring.version>
    </properties>
@@ -96,6 +97,15 @@
    </dependencyManagement>
 
    <dependencies>
+      <!-- ============================================== -->
+      <!-- ================= ADAPTER ==================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Adapter Keycloak -->
+         <groupId>com.bernardomg.example</groupId>
+         <artifactId>adapter-keycloak</artifactId>
+         <version>${project.version}</version>
+      </dependency>
       <!-- ============================================== -->
       <!-- ================== SPRING ==================== -->
       <!-- ============================================== -->
@@ -192,12 +202,6 @@
          <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
-         <!-- Spring Boot Starter: OAuth2 Resource Server -->
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-         <version>${spring.boot.version}</version>
-      </dependency>
-      <dependency>
          <!-- Spring Boot Starter: Devtools -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-devtools</artifactId>
@@ -210,14 +214,6 @@
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-actuator</artifactId>
          <version>${spring.boot.version}</version>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================= KEYCLOAK =================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <groupId>org.keycloak</groupId>
-         <artifactId>keycloak-admin-client</artifactId>
-         <version>${keycloak.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ============== JPA DEPENDENCIES ============== -->
@@ -339,6 +335,21 @@
          <!-- Jackson annotations -->
          <groupId>com.fasterxml.jackson.core</groupId>
          <artifactId>jackson-annotations</artifactId>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- =========== VERSION ENFORCEMENT ============== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- JAXB -->
+         <groupId>org.glassfish.jaxb</groupId>
+         <artifactId>jaxb-runtime</artifactId>
+         <version>${jaxb.version}</version>
+      </dependency>
+      <dependency>
+         <!-- JAXB -->
+         <groupId>jakarta.xml.bind</groupId>
+         <artifactId>jakarta.xml.bind-api</artifactId>
+         <version>${jakarta.xml.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ======= TEST ENVIRONMENT DEPENDENCIES ======== -->

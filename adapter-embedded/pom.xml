@@ -19,7 +19,7 @@
    <!-- **************** PROJECT INFO **************** -->
    <!-- ********************************************** -->
 
-   <artifactId>adapter-keycloak</artifactId>
+   <artifactId>adapter-embedded</artifactId>
    <packaging>jar</packaging>
 
    <!-- ********************************************** -->
@@ -34,8 +34,6 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <jackson.version>2.13.2</jackson.version>
-      <keycloak.version>17.0.0</keycloak.version>
       <spring.boot.version>2.6.4</spring.boot.version>
    </properties>
 
@@ -43,38 +41,7 @@
    <!-- *************** DEPENDENCIES ***************** -->
    <!-- ********************************************** -->
 
-   <dependencyManagement>
-      <dependencies>
-         <dependency>
-            <!-- Jackson BOM -->
-            <groupId>com.fasterxml.jackson</groupId>
-            <artifactId>jackson-bom</artifactId>
-            <version>${jackson.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-      </dependencies>
-   </dependencyManagement>
-
    <dependencies>
-      <!-- ============================================== -->
-      <!-- ================= JACKSON ==================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Jackson -->
-         <groupId>com.fasterxml.jackson.core</groupId>
-         <artifactId>jackson-core</artifactId>
-      </dependency>
-      <dependency>
-         <!-- Jackson databinding -->
-         <groupId>com.fasterxml.jackson.core</groupId>
-         <artifactId>jackson-databind</artifactId>
-      </dependency>
-      <dependency>
-         <!-- Jackson annotations -->
-         <groupId>com.fasterxml.jackson.core</groupId>
-         <artifactId>jackson-annotations</artifactId>
-      </dependency>
       <!-- ============================================== -->
       <!-- ================= ADAPTER ==================== -->
       <!-- ============================================== -->
@@ -85,36 +52,12 @@
          <version>${project.version}</version>
       </dependency>
       <!-- ============================================== -->
-      <!-- ================= KEYCLOAK =================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <groupId>org.keycloak</groupId>
-         <artifactId>keycloak-admin-client</artifactId>
-         <version>${keycloak.version}</version>
-      </dependency>
-      <!-- ============================================== -->
       <!-- =============== SPRING BOOT ================== -->
       <!-- ============================================== -->
       <dependency>
-         <!-- Spring Boot Starter: Web -->
+         <!-- Spring Boot Starter: Security -->
          <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-web</artifactId>
-         <version>${spring.boot.version}</version>
-         <exclusions>
-            <exclusion>
-               <groupId>ch.qos.logback</groupId>
-               <artifactId>logback-classic</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.apache.logging.log4j</groupId>
-               <artifactId>log4j-to-slf4j</artifactId>
-            </exclusion>
-         </exclusions>
-      </dependency>
-      <dependency>
-         <!-- Spring Boot Starter: OAuth2 Resource Server -->
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+         <artifactId>spring-boot-starter-security</artifactId>
          <version>${spring.boot.version}</version>
       </dependency>
    </dependencies>

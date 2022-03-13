@@ -22,6 +22,7 @@
    <modules>
       <module>adapter-core</module>
       <module>adapter-keycloak</module>
+      <module>adapter-embedded</module>
       <module>web-service</module>
    </modules>
 
