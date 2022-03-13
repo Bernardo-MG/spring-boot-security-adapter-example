@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
+    protected void configure(final AuthenticationManagerBuilder auth)
             throws Exception {
 
         auth.inMemoryAuthentication()
@@ -52,11 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .withUser("admin")
             .password("{noop}password")
             .authorities("read", "write");
-
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http
             // HTTP Basic authentication
             .httpBasic()
