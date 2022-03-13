@@ -110,6 +110,12 @@
          <artifactId>adapter-keycloak</artifactId>
          <version>${project.version}</version>
       </dependency>
+      <dependency>
+         <!-- Adapter Embedded -->
+         <groupId>com.bernardomg.example</groupId>
+         <artifactId>adapter-embedded</artifactId>
+         <version>${project.version}</version>
+      </dependency>
       <!-- ============================================== -->
       <!-- ================== SPRING ==================== -->
       <!-- ============================================== -->
