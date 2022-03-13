@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+   <!-- ********************************************** -->
+   <!-- ***************** PARENT POM ***************** -->
+   <!-- ********************************************** -->
+
+   <parent>
+      <groupId>com.bernardomg.maven</groupId>
+      <artifactId>base-pom</artifactId>
+      <version>1.5.0</version>
+   </parent>
+
+   <!-- ********************************************** -->
+   <!-- ******************* MODULES ****************** -->
+   <!-- ********************************************** -->
+
+   <modules>
+      <module>adapter-core</module>
+      <module>adapter-keycloak</module>
+      <module>web-service</module>
+   </modules>
+
+   <!-- ********************************************** -->
+   <!-- **************** PROJECT INFO **************** -->
+   <!-- ********************************************** -->
+
+   <groupId>com.bernardomg.example</groupId>
+   <artifactId>spring-boot-security-adapter-example</artifactId>
+   <version>1.0.0-SNAPSHOT</version>
+   <packaging>pom</packaging>
+
+   <name>Spring MVC Security Example</name>
+   <description>An example showing how to set up secured SOAP web services in Spring</description>
+   <url>https://github.com/bernardo-mg/spring-mvc-security-example</url>
+   <inceptionYear>2017</inceptionYear>
+
+   <licenses>
+      <license>
+         <name>MIT License</name>
+         <url>http://www.opensource.org/licenses/mit-license.php</url>
+         <distribution>repo</distribution>
+      </license>
+   </licenses>
+
+   <!-- ********************************************** -->
+   <!-- ************ RESOURCES AND SERVICES ********** -->
+   <!-- ********************************************** -->
+
+   <scm>
+      <connection>scm:git:https://github.com/bernardo-mg/spring-mvc-security-example.git</connection>
+      <developerConnection>scm:git:https://github.com/bernardo-mg/spring-mvc-security-example.git</developerConnection>
+      <tag>head</tag>
+      <url>https://www.github.com/bernardo-mg/spring-mvc-security-example</url>
+   </scm>
+
+   <issueManagement>
+      <system>GitHub</system>
+      <url>https://www.github.com/bernardo-mg/spring-mvc-security-example/issues</url>
+   </issueManagement>
+
+   <ciManagement>
+      <system>Github workflow</system>
+      <url>https://github.com/bernardo-mg/spring-mvc-security-example/actions</url>
+      <notifiers />
+   </ciManagement>
+
+   <distributionManagement>
+      <repository>
+         <uniqueVersion>false</uniqueVersion>
+         <id>releases</id>
+         <name>Releases Repository</name>
+         <url>https://api.bintray.com/maven/bernardo-mg/maven/spring-mvc-security-example</url>
+      </repository>
+      <snapshotRepository>
+         <uniqueVersion>false</uniqueVersion>
+         <id>snapshots</id>
+         <name>Snapshots Repository</name>
+         <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      </snapshotRepository>
+   </distributionManagement>
+
+   <!-- ********************************************** -->
+   <!-- ****************** PROFILES ****************** -->
+   <!-- ********************************************** -->
+
+   <profiles>
+      <profile>
+         <!-- Profile for the Eclipse Maven plugin -->
+         <!-- Sets the POM so this plugin does not give the usual unregistered 
+            goals errors -->
+         <!-- It will be activated automatically on Eclipse if this has the 
+            m2e plugin, by detecting the version property -->
+         <id>eclipse-maven</id>
+         <activation>
+            <property>
+               <name>m2e.version</name>
+            </property>
+         </activation>
+         <build>
+            <pluginManagement>
+               <plugins>
+                  <plugin>
+                     <!-- m2e lifecycle mapping -->
+                     <!-- This is used to configure the Maven plugin for 
+                        Eclipse. -->
+                     <!-- Among other things, it allows registering goals, 
+                        which Eclipse would otherwise reject. -->
+                     <!-- It has no real effect on Maven. -->
+                     <groupId>org.eclipse.m2e</groupId>
+                     <artifactId>lifecycle-mapping</artifactId>
+                     <version>${plugin.lifecycle.version}</version>
+                     <configuration>
+                        <!-- Sample fix for plugin executions -->
+                        <!-- This is to be used in case a Maven plugins gives 
+                           problems in Eclipse -->
+                        <!-- <lifecycleMappingMetadata> <pluginExecutions> 
+                           <pluginExecution> <pluginExecutionFilter> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> 
+                           <versionRange>[0.5,)</versionRange> <goals> <goal>prepare-agent</goal> </goals> 
+                           </pluginExecutionFilter> <action> <ignore /> </action> </pluginExecution> 
+                           </pluginExecutions> </lifecycleMappingMetadata> -->
+                        <downloadSources>true</downloadSources>
+                        <downloadJavadocs>true</downloadJavadocs>
+                     </configuration>
+                  </plugin>
+               </plugins>
+            </pluginManagement>
+         </build>
+      </profile>
+      <!-- ============================================== -->
+      <!-- ============ DEPLOYMENT PROFILES ============= -->
+      <!-- ============================================== -->
+      <profile>
+         <!-- Site deployment profile -->
+         <!-- Sets the site repository to point to the releases repo -->
+         <id>deployment-site</id>
+         <activation>
+            <!-- Active by default so the repository appears in the reports -->
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <distributionManagement>
+            <site>
+               <id>site</id>
+               <name>Project Documentation Site</name>
+               <!-- The URL should be set externally -->
+               <url>${site.url}</url>
+            </site>
+         </distributionManagement>
+      </profile>
+   </profiles>
+
+   <!-- ********************************************** -->
+   <!-- *********** ORGANIZATION AND MEMBERS ********* -->
+   <!-- ********************************************** -->
+
+   <organization>
+      <name>Bernardo Martínez Garrido</name>
+      <url>https://github.com/Bernardo-MG</url>
+   </organization>
+
+   <developers>
+      <developer>
+         <id>bmg</id>
+         <name>Bernardo Martínez Garrido</name>
+         <email>programming@bernardomg.com</email>
+         <url>https://github.com/Bernardo-MG</url>
+         <organization>Bernardo Martínez Garrido</organization>
+         <organizationUrl>https://github.com/Bernardo-MG</organizationUrl>
+         <roles>
+            <role>Developer</role>
+         </roles>
+         <timezone>+1</timezone>
+         <properties />
+      </developer>
+   </developers>
+
+   <!-- ********************************************** -->
+   <!-- **************** PROPERTIES ****************** -->
+   <!-- ********************************************** -->
+
+   <properties>
+      <!-- ============================================== -->
+      <!-- =============== MANIFEST DATA ================ -->
+      <!-- ============================================== -->
+      <manifest.name>com/bernardomg/example/security/adapter</manifest.name>
+      <!-- ============================================== -->
+      <!-- ============== PLUGINS VERSIONS ============== -->
+      <!-- ============================================== -->
+      <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
+      <plugin.spring.boot.version>2.5.3</plugin.spring.boot.version>
+      <!-- ============================================== -->
+      <!-- ================= MAVEN SITE ================= -->
+      <!-- ============================================== -->
+      <site.skin.version>2.2.6</site.skin.version>
+   </properties>
+
+   <!-- ********************************************** -->
+   <!-- ******************* BUILD ******************** -->
+   <!-- ********************************************** -->
+
+   <build>
+      <defaultGoal>clean package</defaultGoal>
+      <resources>
+         <resource>
+            <directory>src/main/resources/</directory>
+         </resource>
+         <resource>
+            <!-- Main resources -->
+            <directory>src/main/resources/</directory>
+            <includes>
+               <!-- Filter the application properties -->
+               <include>application.properties</include>
+            </includes>
+            <filtering>true</filtering>
+         </resource>
+      </resources>
+      <plugins>
+         <plugin>
+            <!-- Changes -->
+            <!-- Takes care of the changes log -->
+            <!-- It is set to also validate the changes log file -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-changes-plugin</artifactId>
+            <executions>
+               <!-- Changes plugin is bound to the pre-site phase -->
+               <execution>
+                  <id>check-changes</id>
+                  <phase>pre-site</phase>
+                  <goals>
+                     <goal>changes-check</goal>
+                  </goals>
+               </execution>
+               <execution>
+                  <id>validate-changes</id>
+                  <phase>pre-site</phase>
+                  <goals>
+                     <goal>changes-validate</goal>
+                  </goals>
+                  <configuration>
+                     <failOnError>true</failOnError>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <!-- Site -->
+            <!-- Generates the Maven Site -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <dependencies>
+               <dependency>
+                  <!-- Docs Maven Skin -->
+                  <groupId>com.bernardomg.maven.skins</groupId>
+                  <artifactId>docs-maven-skin</artifactId>
+                  <version>${site.skin.version}</version>
+               </dependency>
+            </dependencies>
+         </plugin>
+         <plugin>
+            <!-- WAR -->
+            <!-- Generates the WAR package. -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+         </plugin>
+         <plugin>
+            <!-- Resources -->
+            <!-- Handles the project resources. -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+         </plugin>
+         <plugin>
+            <!-- Spring Boot -->
+            <!-- Takes care of running Spring Boot application -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${plugin.spring.boot.version}</version>
+         </plugin>
+      </plugins>
+   </build>
+
+   <!-- ********************************************** -->
+   <!-- ****************** REPORTS ******************* -->
+   <!-- ********************************************** -->
+
+   <reporting>
+      <plugins>
+         <plugin>
+            <!-- Checkstyle -->
+            <!-- Checks that the source files comply with style standards -->
+            <!-- It is using a customized rules file -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <configuration>
+               <!-- The customized rules file -->
+               <configLocation>${project.basedir}/src/config/checkstyle/checkstyle-rules.xml</configLocation>
+            </configuration>
+         </plugin>
+         <plugin>
+            <!-- PMD -->
+            <!-- Checks that the code complies with a series of code quality 
+               rules -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <configuration>
+               <rulesets>
+                  <!-- The customized rules file -->
+                  <ruleset>${project.basedir}/src/config/pmd/pmd-rules.xml</ruleset>
+               </rulesets>
+            </configuration>
+         </plugin>
+      </plugins>
+   </reporting>
+
+</project>

@@ -1,6 +1,10 @@
-# Spring Boot Security Adapter Example
+# Spring MVC Security Example
 
-Example for setting up a security adapter to swap between providers.
+Sample [Spring MVC][spring-mvc] project with web security.
+
+Handles user authentication, and access restrictions.
+
+Currently it only supports authenticating through the application itself, and not through external services.
 
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]
@@ -9,6 +13,17 @@ Example for setting up a security adapter to swap between providers.
 [![Development javadocs](https://img.shields.io/badge/javadocs-develop-blue.svg)][javadoc-develop]
 
 ## Features
+
+The project by default comes with a useful series of features:
+
+* Login form handling
+* Encrypted passwords
+* Roles and privileges model
+* User status (enabled/expired/locked)
+* CSRF token
+* Remember-me support
+* Security annotations
+* OAuth authentication
 
 ## Documentation
 
@@ -32,17 +47,13 @@ The verify phase is required, otherwise some of the reports won't be generated.
 
 ## Usage
 
-The application is coded in Java, using Maven to manage the project.
-
-### Running
-
-As this is a Spring Boot app it may be run with Maven or through your preferred IDE.
+The project requires an authorization server. The Docker compose file will take care of this, while running the project:
 
 ```
-mvn spring-boot:run
+docker-compose -f docker/docker-compose.yml up
 ```
 
-Once running it will be accessible at [http://localhost:8080/](http://localhost:8080/).
+The resource server API is located at [http://localhost:8080/rest/entity](http://localhost:8080/rest/entity), accessible to the user test-user/1234.
 
 ## Collaborate
 
@@ -63,10 +74,12 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 
 The project has been released under the [MIT License][license].
 
-[issues]: https://github.com/bernardo-mg/spring-boot-security-adapter-example/issues
-[javadoc-develop]: http://docs.bernardomg.com/development/maven/spring-boot-security-adapter-example/apidocs
-[javadoc-release]: http://docs.bernardomg.com/maven/spring-boot-security-adapter-example/apidocs
+[issues]: https://github.com/bernardo-mg/spring-mvc-security-example/issues
+[javadoc-develop]: http://docs.bernardomg.com/development/maven/spring-mvc-security-example/apidocs
+[javadoc-release]: http://docs.bernardomg.com/maven/spring-mvc-security-example/apidocs
 [license]: http://www.opensource.org/licenses/mit-license.php
-[scm]: https://github.com/bernardo-mg/spring-boot-security-adapter-example
-[site-develop]: http://docs.bernardomg.com/development/maven/spring-boot-security-adapter-example
-[site-release]: http://docs.bernardomg.com/maven/spring-boot-security-adapter-example
+[scm]: https://github.com/bernardo-mg/spring-mvc-security-example
+[site-develop]: http://docs.bernardomg.com/development/maven/spring-mvc-security-example
+[site-release]: http://docs.bernardomg.com/maven/spring-mvc-security-example
+
+[spring-mvc]: https://spring.io
