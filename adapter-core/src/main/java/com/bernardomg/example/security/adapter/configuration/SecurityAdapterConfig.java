@@ -32,9 +32,9 @@ import com.bernardomg.example.security.adapter.user.service.DefaultUserService;
 import com.bernardomg.example.security.adapter.user.service.UserService;
 
 @Configuration
-public class UserConfig {
+public class SecurityAdapterConfig {
 
-    public UserConfig() {
+    public SecurityAdapterConfig() {
         super();
     }
 
