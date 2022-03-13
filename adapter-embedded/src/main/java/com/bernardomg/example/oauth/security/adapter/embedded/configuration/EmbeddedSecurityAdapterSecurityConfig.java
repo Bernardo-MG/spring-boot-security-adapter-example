@@ -24,19 +24,15 @@
 
 package com.bernardomg.example.oauth.security.adapter.embedded.configuration;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Configuration
-@ConditionalOnProperty(value = "security.type", havingValue = "embedded",
-        matchIfMissing = false)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class EmbeddedSecurityAdapterSecurityConfig
+        extends WebSecurityConfigurerAdapter {
 
-    public SecurityConfig() {
+    public EmbeddedSecurityAdapterSecurityConfig() {
         super();
     }
 

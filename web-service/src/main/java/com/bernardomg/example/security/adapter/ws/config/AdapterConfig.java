@@ -24,11 +24,9 @@
 
 package com.bernardomg.example.security.adapter.ws.config;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = "com.bernardomg.example.security.adapter")
 public class AdapterConfig {
 
     public AdapterConfig() {

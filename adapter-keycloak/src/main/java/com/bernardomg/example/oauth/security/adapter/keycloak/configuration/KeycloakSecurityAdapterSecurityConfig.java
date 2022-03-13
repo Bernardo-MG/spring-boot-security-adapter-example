@@ -24,8 +24,6 @@
 
 package com.bernardomg.example.oauth.security.adapter.keycloak.configuration;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -33,12 +31,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
-@Configuration
-@ConditionalOnProperty(value = "security.type", havingValue = "oauth",
-        matchIfMissing = false)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class KeycloakSecurityAdapterSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public SecurityConfig() {
+    public KeycloakSecurityAdapterSecurityConfig() {
         super();
     }
 
