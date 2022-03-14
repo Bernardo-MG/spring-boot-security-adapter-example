@@ -1,5 +1,5 @@
 
-package com.bernardomg.example.oauth.security.adapter.keycloak.repository;
+package com.bernardomg.example.security.adapter.keycloak.repository;
 
 import java.util.Objects;
 import java.util.stream.Collectors;

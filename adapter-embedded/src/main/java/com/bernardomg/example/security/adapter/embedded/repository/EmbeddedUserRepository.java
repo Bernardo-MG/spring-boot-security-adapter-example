@@ -1,5 +1,5 @@
 
-package com.bernardomg.example.oauth.security.adapter.embedded.repository;
+package com.bernardomg.example.security.adapter.embedded.repository;
 
 import java.util.Collections;
 
