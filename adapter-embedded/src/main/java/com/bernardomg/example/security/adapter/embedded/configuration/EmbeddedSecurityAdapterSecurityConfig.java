@@ -24,50 +24,49 @@
 
 package com.bernardomg.example.security.adapter.embedded.configuration;
 
-import org.springframework.http.HttpMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class EmbeddedSecurityAdapterSecurityConfig
         extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     public EmbeddedSecurityAdapterSecurityConfig() {
         super();
     }
 
+    @Bean("passwordEncoder")
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth)
             throws Exception {
-
-        auth.inMemoryAuthentication()
-            .withUser("test-user")
-            .password("{noop}1234")
-            .authorities("read")
-            .and()
-            .withUser("admin")
-            .password("{noop}password")
-            .authorities("read", "write");
+        auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http
-            // HTTP Basic authentication
-            .httpBasic()
+        http.authorizeRequests()
+            .anyRequest()
+            .authenticated()
             .and()
-            .authorizeRequests()
-            // Sets authority required for GET requests
-            .antMatchers(HttpMethod.GET, "/rest/**")
-            .hasAuthority("read")
-            // Sets authority required for POST requests
-            .antMatchers(HttpMethod.POST, "/rest/**")
-            .hasAuthority("write")
+            .httpBasic()
             .and()
             .csrf()
             .disable()
             .formLogin()
-            .disable();
+            .disable()
+            .httpBasic();
     }
 
 }

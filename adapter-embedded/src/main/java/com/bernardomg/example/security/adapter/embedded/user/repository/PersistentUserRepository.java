@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2021 the original author or authors.
+ * Copyright (c) 2017-2020 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,35 +22,44 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.ws.config;
+package com.bernardomg.example.security.adapter.embedded.user.repository;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import java.util.Optional;
+
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.example.security.adapter.embedded.user.model.PersistentUser;
 
 /**
- * Web configuration.
- *
+ * Repository for users.
+ * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Configuration
-@EnableJpaRepositories("com.bernardomg.example.security.adapter")
-@EntityScan("com.bernardomg.example.security.adapter")
-public class WebConfiguration implements WebMvcConfigurer {
+public interface PersistentUserRepository
+        extends JpaRepository<PersistentUser, Long> {
 
     /**
-     * Default constructor.
+     * Returns the user details for the received email.
+     * 
+     * @param email
+     *            email to search for
+     * @return the user details for the received email
      */
-    public WebConfiguration() {
-        super();
-    }
+    public Optional<PersistentUser> findOneByEmail(final String email);
+
+    /**
+     * Returns the user details for the received username.
+     * 
+     * @param username
+     *            username to search for
+     * @return the user details for the received username
+     */
+    public Optional<PersistentUser> findOneByUsername(final String username);
 
     @Override
-    public void addCorsMappings(final CorsRegistry registry) {
-        registry.addMapping("/**");
-    }
+    @CacheEvict(cacheNames = { "user", "users", "roles" }, allEntries = true)
+    public <S extends PersistentUser> S save(S entity);
 
 }

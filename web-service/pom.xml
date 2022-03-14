@@ -38,7 +38,7 @@
       <hamcrest.version>2.2</hamcrest.version>
       <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
       <hibernate.version>5.6.5.Final</hibernate.version>
-      <hikari.version>3.4.5</hikari.version>
+      <hikari.version>4.0.3</hikari.version>
       <jackson.version>2.13.2</jackson.version>
       <jakarta.xml.version>2.3.3</jakarta.xml.version>
       <jaxb.version>2.3.3-b02</jaxb.version>
@@ -225,6 +225,19 @@
          <artifactId>spring-boot-starter-actuator</artifactId>
          <version>${spring.boot.version}</version>
       </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: JPA -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-data-jpa</artifactId>
+         <version>${spring.boot.version}</version>
+         <exclusions>
+            <exclusion>
+               <!-- SLF4J API -->
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-api</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
       <!-- ============================================== -->
       <!-- ============== JPA DEPENDENCIES ============== -->
       <!-- ============================================== -->
@@ -260,6 +273,13 @@
          <groupId>com.zaxxer</groupId>
          <artifactId>HikariCP</artifactId>
          <version>${hikari.version}</version>
+         <exclusions>
+            <exclusion>
+               <!-- SLF4J API -->
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-api</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <!-- ============================================== -->
       <!-- ==================== H2 ====================== -->

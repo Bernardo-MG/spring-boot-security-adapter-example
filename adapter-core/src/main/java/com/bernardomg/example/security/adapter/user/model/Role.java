@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2021 the original author or authors.
+ * Copyright (c) 2017-2020 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,35 +22,51 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.ws.config;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+package com.bernardomg.example.security.adapter.user.model;
 
 /**
- * Web configuration.
- *
+ * User role. Groups a set of permissions.
+ * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Configuration
-@EnableJpaRepositories("com.bernardomg.example.security.adapter")
-@EntityScan("com.bernardomg.example.security.adapter")
-public class WebConfiguration implements WebMvcConfigurer {
+public interface Role {
 
     /**
-     * Default constructor.
+     * Returns the user id.
+     * 
+     * @return the user id
      */
-    public WebConfiguration() {
-        super();
-    }
+    public Long getId();
 
-    @Override
-    public void addCorsMappings(final CorsRegistry registry) {
-        registry.addMapping("/**");
-    }
+    /**
+     * Returns the role name.
+     * 
+     * @return the role name
+     */
+    public String getName();
+
+    /**
+     * Returns the user privileges.
+     * 
+     * @return the user privileges
+     */
+    public Iterable<? extends Privilege> getPrivileges();
+
+    /**
+     * Sets the user id.
+     * 
+     * @param identifier
+     *            the new id
+     */
+    public void setId(final Long identifier);
+
+    /**
+     * Sets the role name.
+     * 
+     * @param role
+     *            new name
+     */
+    public void setName(final String role);
 
 }
