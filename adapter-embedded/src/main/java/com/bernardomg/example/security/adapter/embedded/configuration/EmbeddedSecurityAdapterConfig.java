@@ -1,12 +1,12 @@
 
-package com.bernardomg.example.oauth.security.adapter.embedded.configuration;
+package com.bernardomg.example.security.adapter.embedded.configuration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.bernardomg.example.oauth.security.adapter.embedded.repository.EmbeddedUserRepository;
+import com.bernardomg.example.security.adapter.embedded.repository.EmbeddedUserRepository;
 import com.bernardomg.example.security.adapter.user.repository.UserRepository;
 
 @Configuration

@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.bernardomg.example.oauth.security.adapter.embedded.configuration.EmbeddedSecurityAdapterConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.bernardomg.example.security.adapter.embedded.configuration.EmbeddedSecurityAdapterConfig

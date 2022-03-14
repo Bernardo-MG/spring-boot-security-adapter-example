@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.oauth.security.adapter.keycloak.configuration;
+package com.bernardomg.example.security.adapter.keycloak.configuration;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
