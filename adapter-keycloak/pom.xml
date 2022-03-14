@@ -58,6 +58,15 @@
 
    <dependencies>
       <!-- ============================================== -->
+      <!-- ================= ADAPTER ==================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Adapter Core -->
+         <groupId>com.bernardomg.example</groupId>
+         <artifactId>adapter-core</artifactId>
+         <version>${project.version}</version>
+      </dependency>
+      <!-- ============================================== -->
       <!-- ================= JACKSON ==================== -->
       <!-- ============================================== -->
       <dependency>
@@ -74,15 +83,6 @@
          <!-- Jackson annotations -->
          <groupId>com.fasterxml.jackson.core</groupId>
          <artifactId>jackson-annotations</artifactId>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================= ADAPTER ==================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Adapter Core -->
-         <groupId>com.bernardomg.example</groupId>
-         <artifactId>adapter-core</artifactId>
-         <version>${project.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= KEYCLOAK =================== -->

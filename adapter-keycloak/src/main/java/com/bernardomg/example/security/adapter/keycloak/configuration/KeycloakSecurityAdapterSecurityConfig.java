@@ -31,7 +31,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
-public class KeycloakSecurityAdapterSecurityConfig extends WebSecurityConfigurerAdapter {
+public class KeycloakSecurityAdapterSecurityConfig
+        extends WebSecurityConfigurerAdapter {
 
     public KeycloakSecurityAdapterSecurityConfig() {
         super();
@@ -44,7 +45,7 @@ public class KeycloakSecurityAdapterSecurityConfig extends WebSecurityConfigurer
             .antMatchers(HttpMethod.GET, "/rest/**")
             .hasAuthority("read")
             // Sets authority required for POST requests
-            .antMatchers(HttpMethod.POST, "/rest")
+            .antMatchers(HttpMethod.POST, "/rest/**")
             .hasAuthority("write")
             // Actuators are always available
             .antMatchers("/actuator/**")

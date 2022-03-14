@@ -61,7 +61,7 @@ public class EmbeddedSecurityAdapterSecurityConfig
             .antMatchers(HttpMethod.GET, "/rest/**")
             .hasAuthority("read")
             // Sets authority required for POST requests
-            .antMatchers(HttpMethod.POST, "/rest")
+            .antMatchers(HttpMethod.POST, "/rest/**")
             .hasAuthority("write")
             .and()
             .csrf()
