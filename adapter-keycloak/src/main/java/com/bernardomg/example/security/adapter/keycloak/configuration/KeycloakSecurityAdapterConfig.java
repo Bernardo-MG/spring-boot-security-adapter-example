@@ -44,12 +44,6 @@ public class KeycloakSecurityAdapterConfig {
         super();
     }
 
-    @Bean("keycloakUserEntityReader")
-    public EntityReader<User>
-            getPersistentUserEntitySaver(final KeycloakApiClient client) {
-        return new KeycloakUserReader(client);
-    }
-
     @Bean("keycloakApiClient")
     public KeycloakApiClient getKeycloakApiClient(
             @Value("${security.admin.clientId}") final String adminCltId,
@@ -61,6 +55,12 @@ public class KeycloakSecurityAdapterConfig {
             @Value("${security.realm}") final String realm) {
         return new RestTemplateKeycloakApiClient(adminCltId, adminUser,
             adminPass, adminRlm, cltId, endpoint, realm);
+    }
+
+    @Bean("keycloakUserEntityReader")
+    public EntityReader<User>
+            getPersistentUserEntitySaver(final KeycloakApiClient client) {
+        return new KeycloakUserReader(client);
     }
 
 }

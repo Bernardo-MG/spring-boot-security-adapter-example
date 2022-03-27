@@ -1,7 +1,7 @@
 
 package com.bernardomg.example.security.loader;
 
-public interface EntityLoader {
+public interface ModelLoader {
 
     public void load();
 

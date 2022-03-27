@@ -24,14 +24,15 @@
 
 package com.bernardomg.example.security.ws.config;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import java.util.Collection;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.bernardomg.example.security.loader.EntityLoader;
 import com.bernardomg.example.security.loader.EntityReader;
 import com.bernardomg.example.security.loader.EntitySaver;
-import com.bernardomg.example.security.loader.ReaderEntityLoader;
+import com.bernardomg.example.security.loader.ModelLoader;
+import com.bernardomg.example.security.loader.ReaderModelLoader;
 import com.bernardomg.example.security.user.model.User;
 import com.bernardomg.example.security.ws.adapter.service.AdapterLoaderService;
 import com.bernardomg.example.security.ws.adapter.service.DefaultAdapterLoaderService;
@@ -43,16 +44,16 @@ public class AdapterConfiguration {
         super();
     }
 
-    @Bean("userEntityLoader")
-    public EntityLoader getUserEntityLoader(final EntityReader<User> reader,
-            final EntitySaver<User> saver) {
-        return new ReaderEntityLoader<User>(reader, saver);
+    @Bean("adapterLoaderService")
+    public AdapterLoaderService
+            getAdapterLoaderService(final ModelLoader modelLoader) {
+        return new DefaultAdapterLoaderService(modelLoader);
     }
 
-    @Bean("adapterLoaderService")
-    public AdapterLoaderService getAdapterLoaderService(
-            @Qualifier("userEntityLoader") final EntityLoader userLoader) {
-        return new DefaultAdapterLoaderService(userLoader);
+    @Bean("modelLoader")
+    public ModelLoader getModelLoader(final Collection<EntityReader<?>> readers,
+            final Collection<EntitySaver<?>> savers) {
+        return new ReaderModelLoader<User>(readers, savers);
     }
 
 }

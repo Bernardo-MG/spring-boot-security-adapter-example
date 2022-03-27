@@ -21,12 +21,7 @@ public final class EmbeddedUserService implements UserService {
     }
 
     @Override
-    public final Iterable<PersistentUser> getUsers() {
-        return repository.findAll();
-    }
-
-    @Override
-    public User addUser(User user) {
+    public User addUser(final User user) {
         final PersistentUser persistent;
 
         persistent = toPersistentUser(user);
@@ -35,7 +30,12 @@ public final class EmbeddedUserService implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
+    public final Iterable<PersistentUser> getUsers() {
+        return repository.findAll();
+    }
+
+    @Override
+    public User updateUser(final User user) {
         final PersistentUser persistent;
 
         persistent = toPersistentUser(user);

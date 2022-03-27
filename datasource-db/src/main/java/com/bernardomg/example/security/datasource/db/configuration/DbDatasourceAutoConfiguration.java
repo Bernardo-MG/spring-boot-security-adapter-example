@@ -21,16 +21,16 @@ public class DbDatasourceAutoConfiguration {
         super();
     }
 
-    @Bean("userDetailsService")
-    public UserDetailsService getUserDetailsService(
-            final PersistentUserRepository userRepository) {
-        return new PersistentUserDetailsService(userRepository);
-    }
-
     @Bean("persistentUserEntitySaver")
     public EntitySaver<User> getPersistentUserEntitySaver(
             final PersistentUserRepository userRepository) {
         return new PersistentUserEntitySaver(userRepository);
+    }
+
+    @Bean("userDetailsService")
+    public UserDetailsService getUserDetailsService(
+            final PersistentUserRepository userRepository) {
+        return new PersistentUserDetailsService(userRepository);
     }
 
 }

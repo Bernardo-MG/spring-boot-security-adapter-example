@@ -1,16 +1,16 @@
 
 package com.bernardomg.example.security.ws.adapter.service;
 
-import com.bernardomg.example.security.loader.EntityLoader;
+import com.bernardomg.example.security.loader.ModelLoader;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class DefaultAdapterLoaderService implements AdapterLoaderService {
 
-    private final EntityLoader userLoader;
+    private final ModelLoader userLoader;
 
-    public DefaultAdapterLoaderService(final EntityLoader userLoader) {
+    public DefaultAdapterLoaderService(final ModelLoader userLoader) {
         super();
 
         this.userLoader = userLoader;

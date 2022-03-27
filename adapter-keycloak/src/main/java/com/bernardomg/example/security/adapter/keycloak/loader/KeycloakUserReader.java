@@ -1,6 +1,7 @@
 
 package com.bernardomg.example.security.adapter.keycloak.loader;
 
+import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -21,7 +22,7 @@ public final class KeycloakUserReader implements EntityReader<User> {
     }
 
     @Override
-    public final Iterable<User> readAll() {
+    public final Collection<User> readAll() {
         final Iterable<KeycloakUser> users;
 
         users = client.getAllUsers();
@@ -29,6 +30,11 @@ public final class KeycloakUserReader implements EntityReader<User> {
         return StreamSupport.stream(users.spliterator(), false)
             .map(this::toUser)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public final Boolean supports(final Class<?> clz) {
+        return clz.isAssignableFrom(User.class);
     }
 
     private final User toUser(final KeycloakUser kuser) {

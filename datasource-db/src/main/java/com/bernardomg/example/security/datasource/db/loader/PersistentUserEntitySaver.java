@@ -17,14 +17,14 @@ public class PersistentUserEntitySaver implements EntitySaver<User> {
     private final JpaRepository<PersistentUser, Long> repository;
 
     public PersistentUserEntitySaver(
-            JpaRepository<PersistentUser, Long> repository) {
+            final JpaRepository<PersistentUser, Long> repository) {
         super();
 
         this.repository = repository;
     }
 
     @Override
-    public void save(Iterable<User> entities) {
+    public void save(final Iterable<User> entities) {
         final Collection<PersistentUser> persistentUsers;
 
         persistentUsers = StreamSupport.stream(entities.spliterator(), false)
@@ -32,6 +32,11 @@ public class PersistentUserEntitySaver implements EntitySaver<User> {
             .collect(Collectors.toList());
 
         repository.saveAll(persistentUsers);
+    }
+
+    @Override
+    public final Class<User> supports() {
+        return User.class;
     }
 
     private final PersistentUser toPersistentUser(final User user) {
