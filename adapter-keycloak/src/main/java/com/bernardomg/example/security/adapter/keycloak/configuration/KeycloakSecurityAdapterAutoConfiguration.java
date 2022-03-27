@@ -38,9 +38,9 @@ import com.bernardomg.example.security.user.model.User;
 @Configuration
 @ConditionalOnProperty(value = "security.type", havingValue = "oauth",
         matchIfMissing = false)
-public class KeycloakSecurityAdapterConfig {
+public class KeycloakSecurityAdapterAutoConfiguration {
 
-    public KeycloakSecurityAdapterConfig() {
+    public KeycloakSecurityAdapterAutoConfiguration() {
         super();
     }
 
