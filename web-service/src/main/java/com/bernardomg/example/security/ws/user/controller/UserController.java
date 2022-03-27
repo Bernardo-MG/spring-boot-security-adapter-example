@@ -22,15 +22,49 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.ws.user.controller;
 
-import org.springframework.context.annotation.Configuration;
+import java.util.Objects;
 
-@Configuration
-public class SecurityAdapterConfig {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-    public SecurityAdapterConfig() {
+import com.bernardomg.example.security.adapter.user.service.UserService;
+import com.bernardomg.example.security.user.model.User;
+
+/**
+ * Rest controller for the users.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ */
+@RestController
+@RequestMapping("/rest/user")
+public class UserController {
+
+    /**
+     * Example entity service.
+     */
+    private final UserService service;
+
+    /**
+     * Constructs a controller with the specified dependencies.
+     *
+     * @param userService
+     *            user service
+     */
+    @Autowired
+    public UserController(final UserService userService) {
         super();
+
+        service = Objects.requireNonNull(userService,
+            "Received a null pointer as service");
+    }
+
+    @GetMapping
+    public Iterable<? extends User> read() {
+        return service.getUsers();
     }
 
 }

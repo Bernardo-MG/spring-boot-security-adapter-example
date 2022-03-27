@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2021 the original author or authors.
+ * Copyright (c) 2017-2020 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,15 +22,51 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.user.model;
 
-import org.springframework.context.annotation.Configuration;
+/**
+ * User role. Groups a set of permissions.
+ * 
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
+public interface Role {
 
-@Configuration
-public class SecurityAdapterConfig {
+    /**
+     * Returns the user id.
+     * 
+     * @return the user id
+     */
+    public Long getId();
 
-    public SecurityAdapterConfig() {
-        super();
-    }
+    /**
+     * Returns the role name.
+     * 
+     * @return the role name
+     */
+    public String getName();
+
+    /**
+     * Returns the user privileges.
+     * 
+     * @return the user privileges
+     */
+    public Iterable<? extends Privilege> getPrivileges();
+
+    /**
+     * Sets the user id.
+     * 
+     * @param identifier
+     *            the new id
+     */
+    public void setId(final Long identifier);
+
+    /**
+     * Sets the role name.
+     * 
+     * @param role
+     *            new name
+     */
+    public void setName(final String role);
 
 }

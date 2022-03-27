@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2021 the original author or authors.
+ * Copyright (c) 2017-2020 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,15 +22,21 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.user.model;
 
-import org.springframework.context.annotation.Configuration;
+/**
+ * Role privilege. Represents a specific permission.
+ * 
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
+public interface Privilege {
 
-@Configuration
-public class SecurityAdapterConfig {
-
-    public SecurityAdapterConfig() {
-        super();
-    }
+    /**
+     * Returns the privilege name.
+     * 
+     * @return the privilege name
+     */
+    public String getName();
 
 }

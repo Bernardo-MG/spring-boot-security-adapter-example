@@ -22,15 +22,23 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.ws.config;
 
+import org.springframework.boot.actuate.audit.AuditEventRepository;
+import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SecurityAdapterConfig {
+public class AuditConfig {
 
-    public SecurityAdapterConfig() {
+    public AuditConfig() {
         super();
+    }
+
+    @Bean("auditEventRepository")
+    public AuditEventRepository getAuditEventRepository() {
+        return new InMemoryAuditEventRepository();
     }
 
 }

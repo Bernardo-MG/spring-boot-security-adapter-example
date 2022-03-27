@@ -111,9 +111,9 @@
          <version>${project.version}</version>
       </dependency>
       <dependency>
-         <!-- Adapter Embedded -->
+         <!-- DB Datasource -->
          <groupId>com.bernardomg.example</groupId>
-         <artifactId>adapter-embedded</artifactId>
+         <artifactId>datasource-db</artifactId>
          <version>${project.version}</version>
       </dependency>
       <!-- ============================================== -->

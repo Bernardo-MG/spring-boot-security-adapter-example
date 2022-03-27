@@ -28,30 +28,39 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
-import com.bernardomg.example.security.adapter.keycloak.repository.KeycloakUserRepository;
-import com.bernardomg.example.security.adapter.user.repository.UserRepository;
+import com.bernardomg.example.security.adapter.keycloak.client.KeycloakApiClient;
+import com.bernardomg.example.security.adapter.keycloak.client.RestTemplateKeycloakApiClient;
+import com.bernardomg.example.security.adapter.keycloak.loader.KeycloakUserReader;
+import com.bernardomg.example.security.loader.EntityReader;
+import com.bernardomg.example.security.user.model.User;
 
 @Configuration
 @ConditionalOnProperty(value = "security.type", havingValue = "oauth",
         matchIfMissing = false)
-@Import({ KeycloakSecurityAdapterSecurityConfig.class })
 public class KeycloakSecurityAdapterConfig {
 
     public KeycloakSecurityAdapterConfig() {
         super();
     }
 
-    @Bean("userRepository")
-    public UserRepository getUserRepository(
-            @Value("${security.server.url}") String url,
-            @Value("${security.realm}") String rlm,
-            @Value("${security.clientId}") String cltId,
-            @Value("${security.admin.username}") String user,
-            @Value("${security.admin.password}") String pass,
-            @Value("${security.admin.realm}") String userRlm) {
-        return new KeycloakUserRepository(url, rlm, cltId, user, pass, userRlm);
+    @Bean("keycloakUserEntityReader")
+    public EntityReader<User>
+            getPersistentUserEntitySaver(final KeycloakApiClient client) {
+        return new KeycloakUserReader(client);
+    }
+
+    @Bean("keycloakApiClient")
+    public KeycloakApiClient getKeycloakApiClient(
+            @Value("${security.admin.clientId}") final String adminCltId,
+            @Value("${security.admin.username}") final String adminUser,
+            @Value("${security.admin.password}") final String adminPass,
+            @Value("${security.admin.realm}") final String adminRlm,
+            @Value("${security.clientId}") final String cltId,
+            @Value("${security.endpoint}") final String endpoint,
+            @Value("${security.realm}") final String realm) {
+        return new RestTemplateKeycloakApiClient(adminCltId, adminUser,
+            adminPass, adminRlm, cltId, endpoint, realm);
     }
 
 }

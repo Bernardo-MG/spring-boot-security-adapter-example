@@ -22,15 +22,37 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.ws.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class SecurityAdapterConfig {
+import com.bernardomg.example.security.loader.EntityLoader;
+import com.bernardomg.example.security.loader.EntityReader;
+import com.bernardomg.example.security.loader.EntitySaver;
+import com.bernardomg.example.security.loader.ReaderEntityLoader;
+import com.bernardomg.example.security.user.model.User;
+import com.bernardomg.example.security.ws.adapter.service.AdapterLoaderService;
+import com.bernardomg.example.security.ws.adapter.service.DefaultAdapterLoaderService;
 
-    public SecurityAdapterConfig() {
+@Configuration
+public class AdapterConfiguration {
+
+    public AdapterConfiguration() {
         super();
+    }
+
+    @Bean("userEntityLoader")
+    public EntityLoader getUserEntityLoader(final EntityReader<User> reader,
+            final EntitySaver<User> saver) {
+        return new ReaderEntityLoader<User>(reader, saver);
+    }
+
+    @Bean("adapterLoaderService")
+    public AdapterLoaderService getAdapterLoaderService(
+            @Qualifier("userEntityLoader") final EntityLoader userLoader) {
+        return new DefaultAdapterLoaderService(userLoader);
     }
 
 }

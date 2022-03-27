@@ -22,15 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+/**
+ * Configuration classes.
+ */
 
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class SecurityAdapterConfig {
-
-    public SecurityAdapterConfig() {
-        super();
-    }
-
-}
+package com.bernardomg.example.security.ws.config;

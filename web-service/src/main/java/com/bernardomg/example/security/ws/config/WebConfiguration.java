@@ -22,15 +22,35 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.ws.config;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Web configuration.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
 @Configuration
-public class SecurityAdapterConfig {
+@EnableJpaRepositories("com.bernardomg.example.security.adapter")
+@EntityScan("com.bernardomg.example.security.adapter")
+public class WebConfiguration implements WebMvcConfigurer {
 
-    public SecurityAdapterConfig() {
+    /**
+     * Default constructor.
+     */
+    public WebConfiguration() {
         super();
+    }
+
+    @Override
+    public void addCorsMappings(final CorsRegistry registry) {
+        registry.addMapping("/**");
     }
 
 }

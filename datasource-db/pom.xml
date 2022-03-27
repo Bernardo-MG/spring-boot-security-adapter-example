@@ -19,7 +19,7 @@
    <!-- **************** PROJECT INFO **************** -->
    <!-- ********************************************** -->
 
-   <artifactId>adapter-keycloak</artifactId>
+   <artifactId>datasource-db</artifactId>
    <packaging>jar</packaging>
 
    <!-- ********************************************** -->
@@ -34,10 +34,14 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <jackson.version>2.13.2</jackson.version>
-      <keycloak.version>17.0.0</keycloak.version>
+      <javaee.api.version>2.2</javaee.api.version>
+      <liquibase.version>4.8.0</liquibase.version>
       <lombok.version>1.18.22</lombok.version>
+      <log4j.version>2.17.1</log4j.version>
+      <slf4j.version>1.7.36</slf4j.version>
       <spring.boot.version>2.6.4</spring.boot.version>
+      <spring.data.version>2021.1.2</spring.data.version>
+      <spring.version>5.3.16</spring.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -47,10 +51,18 @@
    <dependencyManagement>
       <dependencies>
          <dependency>
-            <!-- Jackson BOM -->
-            <groupId>com.fasterxml.jackson</groupId>
-            <artifactId>jackson-bom</artifactId>
-            <version>${jackson.version}</version>
+            <!-- Spring Framework BOM -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-framework-bom</artifactId>
+            <version>${spring.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <!-- Spring Data BOM -->
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-bom</artifactId>
+            <version>${spring.data.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -68,34 +80,79 @@
          <version>${project.version}</version>
       </dependency>
       <!-- ============================================== -->
-      <!-- ================= JACKSON ==================== -->
+      <!-- ================== LOGGERS =================== -->
       <!-- ============================================== -->
       <dependency>
-         <!-- Jackson -->
-         <groupId>com.fasterxml.jackson.core</groupId>
-         <artifactId>jackson-core</artifactId>
+         <!-- SLF4J API -->
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+         <version>${slf4j.version}</version>
       </dependency>
       <dependency>
-         <!-- Jackson databinding -->
-         <groupId>com.fasterxml.jackson.core</groupId>
-         <artifactId>jackson-databind</artifactId>
+         <!-- Log4j SLF4J Bridge -->
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-slf4j-impl</artifactId>
+         <version>${log4j.version}</version>
+         <scope>provided</scope>
       </dependency>
       <dependency>
-         <!-- Jackson annotations -->
-         <groupId>com.fasterxml.jackson.core</groupId>
-         <artifactId>jackson-annotations</artifactId>
+         <!-- Log4j core -->
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-core</artifactId>
+         <version>${log4j.version}</version>
+         <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
-      <!-- ================= KEYCLOAK =================== -->
+      <!-- ================== LOMBOK ==================== -->
       <!-- ============================================== -->
       <dependency>
-         <groupId>org.keycloak</groupId>
-         <artifactId>keycloak-admin-client</artifactId>
-         <version>${keycloak.version}</version>
+         <!-- Lombok -->
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <version>${lombok.version}</version>
+         <scope>provided</scope>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ============== JPA DEPENDENCIES ============== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- JPA API -->
+         <groupId>javax.persistence</groupId>
+         <artifactId>javax.persistence-api</artifactId>
+         <version>${javaee.api.version}</version>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ================ LIQUIBASE =================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Liquibase -->
+         <groupId>org.liquibase</groupId>
+         <artifactId>liquibase-core</artifactId>
+         <version>${liquibase.version}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>ch.qos.logback</groupId>
+               <artifactId>logback-classic</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ================== SPRING ==================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Spring Data JPA -->
+         <groupId>org.springframework.data</groupId>
+         <artifactId>spring-data-jpa</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- =============== SPRING BOOT ================== -->
       <!-- ============================================== -->
+      <dependency>
+         <!-- Spring Boot Starter: Security -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-security</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
       <dependency>
          <!-- Spring Boot Starter: Web -->
          <groupId>org.springframework.boot</groupId>
@@ -111,22 +168,6 @@
                <artifactId>log4j-to-slf4j</artifactId>
             </exclusion>
          </exclusions>
-      </dependency>
-      <dependency>
-         <!-- Spring Boot Starter: OAuth2 Resource Server -->
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-         <version>${spring.boot.version}</version>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================== LOMBOK ==================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Lombok -->
-         <groupId>org.projectlombok</groupId>
-         <artifactId>lombok</artifactId>
-         <version>${lombok.version}</version>
-         <scope>provided</scope>
       </dependency>
    </dependencies>
 

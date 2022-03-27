@@ -22,15 +22,67 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.ws.response.model;
 
-import org.springframework.context.annotation.Configuration;
+import lombok.Data;
+import lombok.NonNull;
 
-@Configuration
-public class SecurityAdapterConfig {
+/**
+ * Default implementation of the response.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ * @param <T>
+ *            response content type
+ */
+@Data
+public class DefaultResponse<T> implements Response<T> {
 
-    public SecurityAdapterConfig() {
+    /**
+     * Response content.
+     */
+    @NonNull
+    private T              content;
+
+    /**
+     * Response status.
+     */
+    @NonNull
+    private ResponseStatus status = ResponseStatus.SUCCESS;
+
+    /**
+     * Default constructor.
+     */
+    public DefaultResponse() {
         super();
+    }
+
+    /**
+     * Constructs a response with the specified content.
+     *
+     * @param cont
+     *            content
+     */
+    public DefaultResponse(@NonNull final T cont) {
+        super();
+
+        content = cont;
+    }
+
+    /**
+     * Constructs a response with the specified content and status.
+     *
+     * @param cont
+     *            content
+     * @param stat
+     *            status
+     */
+    public DefaultResponse(@NonNull final T cont,
+            @NonNull final ResponseStatus stat) {
+        super();
+
+        content = cont;
+        status = stat;
     }
 
 }

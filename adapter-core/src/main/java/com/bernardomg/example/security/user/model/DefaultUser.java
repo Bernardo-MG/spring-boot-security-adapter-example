@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2021 the original author or authors.
+ * Copyright (c) 2017-2020 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,22 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.user.model;
 
-import org.springframework.context.annotation.Configuration;
+import lombok.Data;
 
-@Configuration
-public class SecurityAdapterConfig {
+@Data
+public class DefaultUser implements User {
 
-    public SecurityAdapterConfig() {
+    /**
+     * User name.
+     */
+    private String username;
+
+    /**
+     * Default constructor.
+     */
+    public DefaultUser() {
         super();
     }
 

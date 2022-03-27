@@ -22,14 +22,34 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.ws;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Configuration
-public class SecurityAdapterConfig {
+/**
+ * Application runnable class. This allows Spring Boot to run the application.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
+@SpringBootApplication
+public class Application {
 
-    public SecurityAdapterConfig() {
+    /**
+     * Runnable main method.
+     *
+     * @param args
+     *            execution parameters
+     */
+    public static void main(final String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+    /**
+     * Default constructor.
+     */
+    public Application() {
         super();
     }
 

@@ -22,15 +22,11 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+/**
+ * Application root package.
+ * <p>
+ * This is where the main class is contained. All the subpackages will be
+ * scanned by the Spring Boot application.
+ */
 
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class SecurityAdapterConfig {
-
-    public SecurityAdapterConfig() {
-        super();
-    }
-
-}
+package com.bernardomg.example.security.ws;

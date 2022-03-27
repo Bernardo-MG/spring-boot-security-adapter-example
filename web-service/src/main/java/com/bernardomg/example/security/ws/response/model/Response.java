@@ -22,15 +22,30 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.adapter.configuration;
+package com.bernardomg.example.security.ws.response.model;
 
-import org.springframework.context.annotation.Configuration;
+/**
+ * Response to the frontend.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ * @param <T>
+ *            response content type
+ */
+public interface Response<T> {
 
-@Configuration
-public class SecurityAdapterConfig {
+    /**
+     * Returns the response content.
+     *
+     * @return the response content
+     */
+    public T getContent();
 
-    public SecurityAdapterConfig() {
-        super();
-    }
+    /**
+     * Returns the response status.
+     *
+     * @return the response status
+     */
+    public ResponseStatus getStatus();
 
 }
