@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bernardomg.example.security.adapter.user.service.UserService;
+import com.bernardomg.example.security.auth.annotation.Authorized;
 import com.bernardomg.example.security.datasource.db.user.model.PersistentUser;
 import com.bernardomg.example.security.user.model.User;
 
@@ -22,6 +23,7 @@ public final class PersistentUserService implements UserService {
     }
 
     @Override
+    @Authorized("create")
     public User addUser(final User user) {
         final PersistentUser persistent;
 
@@ -31,11 +33,13 @@ public final class PersistentUserService implements UserService {
     }
 
     @Override
+    @Authorized("read")
     public final Iterable<PersistentUser> getUsers() {
         return repository.findAll();
     }
 
     @Override
+    @Authorized("update")
     public User updateUser(final User user) {
         final PersistentUser persistent;
 
