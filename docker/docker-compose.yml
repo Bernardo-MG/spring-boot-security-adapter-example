@@ -1,9 +1,6 @@
 version: '3'
 services:
     ws:
-        depends_on:
-            auth-server:
-                condition: service_healthy
         build:
             context: ../
             dockerfile: ./docker/Dockerfile
