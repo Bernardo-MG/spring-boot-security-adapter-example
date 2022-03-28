@@ -26,6 +26,7 @@ public final class DefaultEntitySourceFactory implements EntitySourceFactory {
             connect(final ModelExtractorConfiguration config) {
         final Optional<EntitySourceBuilder> builder;
 
+        log.error("Searching code {} in {}", config.getSourceName(), builders);
         builder = builders.stream()
             .filter(b -> b.getSourceName()
                 .equals(config.getSourceName()))

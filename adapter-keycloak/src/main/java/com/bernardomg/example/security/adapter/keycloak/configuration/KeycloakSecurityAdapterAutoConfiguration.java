@@ -24,15 +24,12 @@
 
 package com.bernardomg.example.security.adapter.keycloak.configuration;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.bernardomg.example.security.adapter.keycloak.extractor.factory.KeycloakEntitySourceBuilder;
 
 @Configuration
-@ConditionalOnProperty(value = "security.type", havingValue = "oauth",
-        matchIfMissing = false)
 public class KeycloakSecurityAdapterAutoConfiguration {
 
     public KeycloakSecurityAdapterAutoConfiguration() {
