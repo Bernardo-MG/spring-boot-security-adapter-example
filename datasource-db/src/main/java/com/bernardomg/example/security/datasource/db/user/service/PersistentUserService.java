@@ -10,11 +10,11 @@ import com.bernardomg.example.security.adapter.user.service.UserService;
 import com.bernardomg.example.security.datasource.db.user.model.PersistentUser;
 import com.bernardomg.example.security.user.model.User;
 
-public final class EmbeddedUserService implements UserService {
+public final class PersistentUserService implements UserService {
 
     private final JpaRepository<PersistentUser, Long> repository;
 
-    public EmbeddedUserService(final JpaRepository<PersistentUser, Long> repo) {
+    public PersistentUserService(final JpaRepository<PersistentUser, Long> repo) {
         super();
 
         repository = Objects.requireNonNull(repo);
