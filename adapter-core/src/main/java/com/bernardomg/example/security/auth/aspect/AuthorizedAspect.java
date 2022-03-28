@@ -1,10 +1,17 @@
 
 package com.bernardomg.example.security.auth.aspect;
 
+import java.lang.reflect.Method;
+import java.util.Objects;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+
+import com.bernardomg.example.security.auth.annotation.Authorized;
+import com.bernardomg.example.security.auth.validator.PrivilegeValidator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,23 +24,39 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 public class AuthorizedAspect {
 
+    private final PrivilegeValidator validator;
+
     /**
      * Default constructor.
      */
-    public AuthorizedAspect() {
+    public AuthorizedAspect(final PrivilegeValidator vltr) {
         super();
+
+        validator = Objects.requireNonNull(vltr);
     }
 
-    @Pointcut("@within(es.enviraiot.dahs.security.access.annotation.Authorized)")
+    @Pointcut("@within(com.bernardomg.example.security.auth.annotation.Authorized)")
     public void annotatedClass() {}
 
-    @Pointcut("@annotation(es.enviraiot.dahs.security.access.annotation.Authorized)")
+    @Pointcut("@annotation(com.bernardomg.example.security.auth.annotation.Authorized)")
     public void annotatedMethod() {}
 
     @Before("execution(* *(..)) && (annotatedMethod() || annotatedClass())")
     public void beforeCall(final JoinPoint joinPoint) {
-        log.trace("Calling {} with arguments {}", joinPoint.getSignature()
+        final MethodSignature signature;
+        final Method method;
+        final Authorized myAnnotation;
+
+        signature = (MethodSignature) joinPoint.getSignature();
+        method = signature.getMethod();
+
+        myAnnotation = method.getAnnotation(Authorized.class);
+
+        log.debug("Calling {} with arguments {}", joinPoint.getSignature()
             .toShortString(), joinPoint.getArgs());
+        log.debug("Privilege: {}", myAnnotation.value());
+
+        validator.checkPrivilege(myAnnotation.value());
     }
 
 }

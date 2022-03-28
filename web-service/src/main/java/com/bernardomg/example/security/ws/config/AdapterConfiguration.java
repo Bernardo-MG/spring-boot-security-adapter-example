@@ -31,6 +31,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 
+import com.bernardomg.example.security.auth.aspect.AuthorizedAspect;
+import com.bernardomg.example.security.auth.validator.PrivilegeValidator;
 import com.bernardomg.example.security.extractor.DefaultModelExtractor;
 import com.bernardomg.example.security.extractor.EntitySaver;
 import com.bernardomg.example.security.extractor.ModelExtractor;
@@ -45,6 +47,7 @@ import com.bernardomg.example.security.properties.PropertiesRegistrySource;
 import com.bernardomg.example.security.properties.SpringEnvironmentPropertiesRegistrySource;
 import com.bernardomg.example.security.ws.adapter.service.AdapterLoaderService;
 import com.bernardomg.example.security.ws.adapter.service.DefaultAdapterLoaderService;
+import com.bernardomg.example.security.ws.auth.validator.SpringSessionPrivilegeValidator;
 
 @Configuration
 public class AdapterConfiguration {
@@ -65,6 +68,12 @@ public class AdapterConfiguration {
         return new DefaultAdapterLoaderService(extractor, config);
     }
 
+    @Bean("authorizedAspect")
+    public AuthorizedAspect
+            getAuthorizedAspect(final PrivilegeValidator privilegeValidator) {
+        return new AuthorizedAspect(privilegeValidator);
+    }
+
     @Bean("entitySourceFactory")
     public EntitySourceFactory getEntitySourceFactory(
             final Collection<EntitySourceBuilder> builders) {
@@ -75,6 +84,11 @@ public class AdapterConfiguration {
     public ModelExtractor getModelExtractor(final EntitySourceFactory factory,
             final Collection<EntitySaver<?>> savers) {
         return new DefaultModelExtractor(factory, savers);
+    }
+
+    @Bean("privilegeValidator")
+    public PrivilegeValidator getPrivilegeValidator() {
+        return new SpringSessionPrivilegeValidator();
     }
 
     @Bean("securitySpecification")
