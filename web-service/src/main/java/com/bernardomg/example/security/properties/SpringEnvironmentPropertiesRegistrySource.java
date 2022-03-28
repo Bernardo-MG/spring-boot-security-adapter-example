@@ -31,7 +31,7 @@ public final class SpringEnvironmentPropertiesRegistrySource
     private final void load(final PropertiesRegistry registry,
             final EnumerablePropertySource<?> source) {
         Arrays.stream(source.getPropertyNames())
-            .filter(n -> n.startsWith("dahs.security"))
+            .filter(n -> n.startsWith("security"))
             .forEach(n -> registry.setProperty(n,
                 String.valueOf(source.getProperty(n))));
     }

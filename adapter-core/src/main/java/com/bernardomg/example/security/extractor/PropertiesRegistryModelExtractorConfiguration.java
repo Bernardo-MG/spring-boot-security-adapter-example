@@ -20,7 +20,18 @@ public final class PropertiesRegistryModelExtractorConfiguration
 
     @Override
     public final String getProperty(final String key) {
-        return String.valueOf(properties.getProperty(key));
+        final Object value;
+        final String result;
+
+        value = properties.getProperty(key);
+
+        if (value == null) {
+            result = null;
+        } else {
+            result = String.valueOf(value);
+        }
+
+        return result;
     }
 
     @Override

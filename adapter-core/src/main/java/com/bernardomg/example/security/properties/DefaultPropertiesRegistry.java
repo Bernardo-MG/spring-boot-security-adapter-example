@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public final class DefaultPropertiesRegistry implements PropertiesRegistry {
 
     private final Map<String, Object> properties = new HashMap<>();
@@ -25,7 +28,13 @@ public final class DefaultPropertiesRegistry implements PropertiesRegistry {
 
     @Override
     public final Object getProperty(final String key) {
-        return properties.get(key);
+        final Object value;
+
+        value = properties.get(key);
+
+        log.debug("{}: {}", key, value);
+
+        return value;
     }
 
     @Override

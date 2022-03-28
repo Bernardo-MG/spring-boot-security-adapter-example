@@ -56,6 +56,11 @@ public final class RestTemplateKeycloakApiClient implements KeycloakApiClient {
             "%s/auth/realms/%s/protocol/openid-connect/token", endpoint,
             adminRlm);
 
+        log.debug("Endpoint: {}", endpoint);
+        log.debug("Admin realm: {}", adminRlm);
+        log.debug("Admin client: {}", adminClientId);
+        log.debug("Admin user: {}", adminUser);
+
         clientId = Objects.requireNonNull(cltId);
 
         loginEndpoint = String.format(

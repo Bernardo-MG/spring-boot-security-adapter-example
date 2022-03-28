@@ -31,7 +31,7 @@ public final class KeycloakEntitySourceBuilder implements EntitySourceBuilder {
             config.getProperty("security.admin.realm"),
             config.getProperty("security.clientId"),
             config.getProperty("security.endpoint"),
-            config.getProperty("security.endpoint"));
+            config.getProperty("security.realm"));
 
         readers = new ArrayList<>();
         readers.add(new KeycloakUserReader(client));
