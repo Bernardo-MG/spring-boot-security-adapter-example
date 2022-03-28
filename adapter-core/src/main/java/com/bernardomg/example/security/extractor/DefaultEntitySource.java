@@ -4,6 +4,9 @@ package com.bernardomg.example.security.extractor;
 import java.util.Collection;
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public final class DefaultEntitySource implements EntitySource {
 
     private final Collection<EntityReader<?>> readers;
@@ -24,6 +27,7 @@ public final class DefaultEntitySource implements EntitySource {
 
         if (reader.isEmpty()) {
             // TODO: Use concrete exception
+            log.error("No reader for {}", clz);
             throw new RuntimeException();
         }
 

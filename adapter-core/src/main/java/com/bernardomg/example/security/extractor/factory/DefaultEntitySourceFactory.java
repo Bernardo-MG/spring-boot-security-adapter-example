@@ -7,6 +7,9 @@ import java.util.Optional;
 import com.bernardomg.example.security.extractor.EntitySource;
 import com.bernardomg.example.security.extractor.ModelExtractorConfiguration;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public final class DefaultEntitySourceFactory implements EntitySourceFactory {
 
     private final Collection<EntitySourceBuilder> builders;
@@ -30,6 +33,7 @@ public final class DefaultEntitySourceFactory implements EntitySourceFactory {
 
         if (builder.isEmpty()) {
             // TODO: Use concrete exception
+            log.error("No builder for {}", config.getSourceName());
             throw new RuntimeException();
         }
 
