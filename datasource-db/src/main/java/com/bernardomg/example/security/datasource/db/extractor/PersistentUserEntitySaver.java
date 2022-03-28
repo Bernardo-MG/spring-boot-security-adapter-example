@@ -1,5 +1,5 @@
 
-package com.bernardomg.example.security.datasource.db.loader;
+package com.bernardomg.example.security.datasource.db.extractor;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -9,10 +9,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bernardomg.example.security.datasource.db.user.model.PersistentUser;
-import com.bernardomg.example.security.loader.EntitySaver;
+import com.bernardomg.example.security.extractor.EntitySaver;
 import com.bernardomg.example.security.user.model.User;
 
-public class PersistentUserEntitySaver implements EntitySaver<User> {
+public final class PersistentUserEntitySaver implements EntitySaver<User> {
 
     private final JpaRepository<PersistentUser, Long> repository;
 
@@ -24,7 +24,7 @@ public class PersistentUserEntitySaver implements EntitySaver<User> {
     }
 
     @Override
-    public void save(final Iterable<User> entities) {
+    public final void save(final Iterable<User> entities) {
         final Collection<PersistentUser> persistentUsers;
 
         persistentUsers = StreamSupport.stream(entities.spliterator(), false)

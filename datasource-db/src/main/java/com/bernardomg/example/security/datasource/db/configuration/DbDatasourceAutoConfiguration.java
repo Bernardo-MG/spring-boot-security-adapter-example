@@ -11,11 +11,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.bernardomg.example.security.adapter.user.service.UserService;
 import com.bernardomg.example.security.datasource.db.auth.service.PersistentUserDetailsService;
-import com.bernardomg.example.security.datasource.db.loader.PersistentUserEntitySaver;
+import com.bernardomg.example.security.datasource.db.extractor.PersistentUserEntitySaver;
 import com.bernardomg.example.security.datasource.db.user.model.PersistentUser;
 import com.bernardomg.example.security.datasource.db.user.repository.PersistentUserRepository;
 import com.bernardomg.example.security.datasource.db.user.service.PersistentUserService;
-import com.bernardomg.example.security.loader.EntitySaver;
+import com.bernardomg.example.security.extractor.EntitySaver;
 import com.bernardomg.example.security.user.model.User;
 
 @Configuration

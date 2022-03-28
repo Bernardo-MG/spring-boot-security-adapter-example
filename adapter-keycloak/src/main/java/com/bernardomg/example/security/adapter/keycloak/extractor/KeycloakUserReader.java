@@ -1,5 +1,5 @@
 
-package com.bernardomg.example.security.adapter.keycloak.loader;
+package com.bernardomg.example.security.adapter.keycloak.extractor;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -7,7 +7,7 @@ import java.util.stream.StreamSupport;
 
 import com.bernardomg.example.security.adapter.keycloak.client.KeycloakApiClient;
 import com.bernardomg.example.security.adapter.keycloak.client.model.KeycloakUser;
-import com.bernardomg.example.security.loader.EntityReader;
+import com.bernardomg.example.security.extractor.EntityReader;
 import com.bernardomg.example.security.user.model.DefaultUser;
 import com.bernardomg.example.security.user.model.User;
 

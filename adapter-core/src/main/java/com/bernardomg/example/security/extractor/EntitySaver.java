@@ -1,5 +1,5 @@
 
-package com.bernardomg.example.security.loader;
+package com.bernardomg.example.security.extractor;
 
 public interface EntitySaver<T> {
 

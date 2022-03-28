@@ -24,16 +24,11 @@
 
 package com.bernardomg.example.security.adapter.keycloak.configuration;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.bernardomg.example.security.adapter.keycloak.client.KeycloakApiClient;
-import com.bernardomg.example.security.adapter.keycloak.client.RestTemplateKeycloakApiClient;
-import com.bernardomg.example.security.adapter.keycloak.loader.KeycloakUserReader;
-import com.bernardomg.example.security.loader.EntityReader;
-import com.bernardomg.example.security.user.model.User;
+import com.bernardomg.example.security.adapter.keycloak.extractor.factory.KeycloakEntitySourceBuilder;
 
 @Configuration
 @ConditionalOnProperty(value = "security.type", havingValue = "oauth",
@@ -44,23 +39,9 @@ public class KeycloakSecurityAdapterAutoConfiguration {
         super();
     }
 
-    @Bean("keycloakApiClient")
-    public KeycloakApiClient getKeycloakApiClient(
-            @Value("${security.admin.clientId}") final String adminCltId,
-            @Value("${security.admin.username}") final String adminUser,
-            @Value("${security.admin.password}") final String adminPass,
-            @Value("${security.admin.realm}") final String adminRlm,
-            @Value("${security.clientId}") final String cltId,
-            @Value("${security.endpoint}") final String endpoint,
-            @Value("${security.realm}") final String realm) {
-        return new RestTemplateKeycloakApiClient(adminCltId, adminUser,
-            adminPass, adminRlm, cltId, endpoint, realm);
-    }
-
-    @Bean("keycloakUserEntityReader")
-    public EntityReader<User>
-            getPersistentUserEntitySaver(final KeycloakApiClient client) {
-        return new KeycloakUserReader(client);
+    @Bean("keycloakEntitySourceBuilder")
+    public KeycloakEntitySourceBuilder getKeycloakEntitySourceBuilder() {
+        return new KeycloakEntitySourceBuilder();
     }
 
 }

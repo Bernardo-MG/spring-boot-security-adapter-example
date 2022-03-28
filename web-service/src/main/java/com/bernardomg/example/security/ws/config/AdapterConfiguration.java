@@ -29,11 +29,13 @@ import java.util.Collection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.bernardomg.example.security.loader.EntityReader;
-import com.bernardomg.example.security.loader.EntitySaver;
-import com.bernardomg.example.security.loader.ModelLoader;
-import com.bernardomg.example.security.loader.ReaderModelLoader;
-import com.bernardomg.example.security.user.model.User;
+import com.bernardomg.example.security.extractor.DefaultModelExtractor;
+import com.bernardomg.example.security.extractor.EntitySaver;
+import com.bernardomg.example.security.extractor.ModelExtractor;
+import com.bernardomg.example.security.extractor.ModelExtractorConfiguration;
+import com.bernardomg.example.security.extractor.factory.DefaultEntitySourceFactory;
+import com.bernardomg.example.security.extractor.factory.EntitySourceBuilder;
+import com.bernardomg.example.security.extractor.factory.EntitySourceFactory;
 import com.bernardomg.example.security.ws.adapter.service.AdapterLoaderService;
 import com.bernardomg.example.security.ws.adapter.service.DefaultAdapterLoaderService;
 
@@ -45,15 +47,22 @@ public class AdapterConfiguration {
     }
 
     @Bean("adapterLoaderService")
-    public AdapterLoaderService
-            getAdapterLoaderService(final ModelLoader modelLoader) {
-        return new DefaultAdapterLoaderService(modelLoader);
+    public AdapterLoaderService getAdapterLoaderService(
+            final ModelExtractor extractor,
+            final ModelExtractorConfiguration config) {
+        return new DefaultAdapterLoaderService(extractor, config);
     }
 
-    @Bean("modelLoader")
-    public ModelLoader getModelLoader(final Collection<EntityReader<?>> readers,
+    @Bean("modelExtractor")
+    public ModelExtractor getModelExtractor(final EntitySourceFactory factory,
             final Collection<EntitySaver<?>> savers) {
-        return new ReaderModelLoader<User>(readers, savers);
+        return new DefaultModelExtractor(factory, savers);
+    }
+
+    @Bean("entitySourceFactory")
+    public EntitySourceFactory getEntitySourceFactory(
+            final Collection<EntitySourceBuilder> builders) {
+        return new DefaultEntitySourceFactory(builders);
     }
 
 }
