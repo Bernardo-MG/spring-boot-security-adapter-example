@@ -42,21 +42,26 @@ public class AuthorizedAspect {
     public void annotatedMethod() {}
 
     @Before("execution(* *(..)) && (annotatedMethod() || annotatedClass())")
-    public void beforeCall(final JoinPoint joinPoint) {
+    public void beforeAnnotation(final JoinPoint joinPoint) {
         final MethodSignature signature;
         final Method method;
-        final Authorized myAnnotation;
+        final Authorized annotation;
 
         signature = (MethodSignature) joinPoint.getSignature();
         method = signature.getMethod();
 
-        myAnnotation = method.getAnnotation(Authorized.class);
-
         log.debug("Calling {} with arguments {}", joinPoint.getSignature()
             .toShortString(), joinPoint.getArgs());
-        log.debug("Privilege: {}", myAnnotation.value());
 
-        validator.checkPrivilege(myAnnotation.value());
+        annotation = method.getAnnotation(Authorized.class);
+        if (annotation != null) {
+            log.debug("Privilege: {}", annotation.value());
+
+            validator.checkPrivilege(annotation.value());
+        } else {
+            log.warn("Could not find annotation in {}",
+                joinPoint.getSignature());
+        }
     }
 
 }

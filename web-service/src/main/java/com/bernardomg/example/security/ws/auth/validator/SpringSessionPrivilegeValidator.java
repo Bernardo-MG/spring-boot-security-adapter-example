@@ -23,7 +23,8 @@ public final class SpringSessionPrivilegeValidator
             .stream()
             .noneMatch(a -> a.getAuthority()
                 .equals(privilege))) {
-            log.error("User in session has not the privilege {}", privilege);
+            log.error("User in session {} has not the privilege {}",
+                auth.getName(), privilege);
         }
     }
 
