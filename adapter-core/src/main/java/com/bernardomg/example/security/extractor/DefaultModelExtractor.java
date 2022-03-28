@@ -27,7 +27,7 @@ public final class DefaultModelExtractor implements ModelExtractor {
         source = factory.connect(config);
 
         for (final EntitySaver<?> saver : savers) {
-            read = source.read(saver.getClass());
+            read = source.read(saver.supports());
             saver.save(read);
         }
     }
