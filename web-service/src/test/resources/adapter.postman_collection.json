@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "62d9f4e8-39b2-4a85-81ee-09534468cf16",
+		"_postman_id": "e73030ce-8ec3-4d6a-bc28-139149c917fd",
 		"name": "Security Adapter",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -368,6 +368,82 @@
 							}
 						}
 					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.request.url=\"http://localhost:8080/rest\"+pm.request.url;"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Model extraction",
+			"item": [
+				{
+					"name": "Load",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/rest/loader/load",
+							"path": [
+								"rest",
+								"loader",
+								"load"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "1234",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "admin",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.request.url=\"http://localhost:8080/rest\"+pm.request.url;"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}
