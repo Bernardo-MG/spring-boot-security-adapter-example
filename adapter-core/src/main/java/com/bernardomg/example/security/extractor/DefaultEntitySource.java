@@ -15,7 +15,7 @@ public final class DefaultEntitySource implements EntitySource {
     }
 
     @Override
-    public final <T> Collection<T> read(Class<T> clz) {
+    public final <T> Collection<T> read(final Class<T> clz) {
         final Optional<EntityReader<?>> reader;
 
         reader = readers.stream()

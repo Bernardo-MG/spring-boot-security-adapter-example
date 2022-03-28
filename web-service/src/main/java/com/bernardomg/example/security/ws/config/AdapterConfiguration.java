@@ -25,17 +25,24 @@
 package com.bernardomg.example.security.ws.config;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.ConfigurableEnvironment;
 
 import com.bernardomg.example.security.extractor.DefaultModelExtractor;
 import com.bernardomg.example.security.extractor.EntitySaver;
 import com.bernardomg.example.security.extractor.ModelExtractor;
 import com.bernardomg.example.security.extractor.ModelExtractorConfiguration;
+import com.bernardomg.example.security.extractor.PropertiesRegistryModelExtractorConfiguration;
 import com.bernardomg.example.security.extractor.factory.DefaultEntitySourceFactory;
 import com.bernardomg.example.security.extractor.factory.EntitySourceBuilder;
 import com.bernardomg.example.security.extractor.factory.EntitySourceFactory;
+import com.bernardomg.example.security.properties.DefaultPropertiesRegistryFactory;
+import com.bernardomg.example.security.properties.PropertiesRegistry;
+import com.bernardomg.example.security.properties.PropertiesRegistrySource;
+import com.bernardomg.example.security.properties.SpringEnvironmentPropertiesRegistrySource;
 import com.bernardomg.example.security.ws.adapter.service.AdapterLoaderService;
 import com.bernardomg.example.security.ws.adapter.service.DefaultAdapterLoaderService;
 
@@ -49,8 +56,19 @@ public class AdapterConfiguration {
     @Bean("adapterLoaderService")
     public AdapterLoaderService getAdapterLoaderService(
             final ModelExtractor extractor,
-            final ModelExtractorConfiguration config) {
+            final PropertiesRegistry properties) {
+        final ModelExtractorConfiguration config;
+
+        config = new PropertiesRegistryModelExtractorConfiguration("keycloak",
+            properties);
+
         return new DefaultAdapterLoaderService(extractor, config);
+    }
+
+    @Bean("entitySourceFactory")
+    public EntitySourceFactory getEntitySourceFactory(
+            final Collection<EntitySourceBuilder> builders) {
+        return new DefaultEntitySourceFactory(builders);
     }
 
     @Bean("modelExtractor")
@@ -59,10 +77,17 @@ public class AdapterConfiguration {
         return new DefaultModelExtractor(factory, savers);
     }
 
-    @Bean("entitySourceFactory")
-    public EntitySourceFactory getEntitySourceFactory(
-            final Collection<EntitySourceBuilder> builders) {
-        return new DefaultEntitySourceFactory(builders);
+    @Bean("securitySpecification")
+    public PropertiesRegistry getSecuritySpecification(
+            final List<PropertiesRegistrySource> sources) {
+        return new DefaultPropertiesRegistryFactory(sources).build();
+    }
+
+    @Bean("springEnvironmentPropertiesRegistrySource")
+    public PropertiesRegistrySource
+            getSpringEnvironmentPropertiesRegistrySource(
+                    final ConfigurableEnvironment env) {
+        return new SpringEnvironmentPropertiesRegistrySource(env);
     }
 
 }

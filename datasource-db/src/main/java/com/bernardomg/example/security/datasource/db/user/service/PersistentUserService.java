@@ -14,7 +14,8 @@ public final class PersistentUserService implements UserService {
 
     private final JpaRepository<PersistentUser, Long> repository;
 
-    public PersistentUserService(final JpaRepository<PersistentUser, Long> repo) {
+    public PersistentUserService(
+            final JpaRepository<PersistentUser, Long> repo) {
         super();
 
         repository = Objects.requireNonNull(repo);

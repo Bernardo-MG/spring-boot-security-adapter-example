@@ -9,9 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class DefaultAdapterLoaderService implements AdapterLoaderService {
 
-    private final ModelExtractor              extractor;
-
     private final ModelExtractorConfiguration config;
+
+    private final ModelExtractor              extractor;
 
     public DefaultAdapterLoaderService(final ModelExtractor extractor,
             final ModelExtractorConfiguration config) {
