@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 import com.bernardomg.example.security.auth.aspect.AuthorizedAspect;
-import com.bernardomg.example.security.auth.validator.PrivilegeValidator;
+import com.bernardomg.example.security.auth.validator.AuthorizationValidator;
 import com.bernardomg.example.security.extractor.DefaultModelExtractor;
 import com.bernardomg.example.security.extractor.EntitySaver;
 import com.bernardomg.example.security.extractor.ModelExtractor;
@@ -70,7 +70,7 @@ public class AdapterConfiguration {
 
     @Bean("authorizedAspect")
     public AuthorizedAspect
-            getAuthorizedAspect(final PrivilegeValidator privilegeValidator) {
+            getAuthorizedAspect(final AuthorizationValidator privilegeValidator) {
         return new AuthorizedAspect(privilegeValidator);
     }
 
@@ -87,7 +87,7 @@ public class AdapterConfiguration {
     }
 
     @Bean("privilegeValidator")
-    public PrivilegeValidator getPrivilegeValidator() {
+    public AuthorizationValidator getPrivilegeValidator() {
         return new SpringSessionPrivilegeValidator();
     }
 

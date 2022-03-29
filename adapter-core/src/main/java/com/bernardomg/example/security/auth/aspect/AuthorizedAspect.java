@@ -11,7 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import com.bernardomg.example.security.auth.annotation.Authorized;
-import com.bernardomg.example.security.auth.validator.PrivilegeValidator;
+import com.bernardomg.example.security.auth.validator.AuthorizationValidator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,12 +24,12 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 public class AuthorizedAspect {
 
-    private final PrivilegeValidator validator;
+    private final AuthorizationValidator validator;
 
     /**
      * Default constructor.
      */
-    public AuthorizedAspect(final PrivilegeValidator vltr) {
+    public AuthorizedAspect(final AuthorizationValidator vltr) {
         super();
 
         validator = Objects.requireNonNull(vltr);

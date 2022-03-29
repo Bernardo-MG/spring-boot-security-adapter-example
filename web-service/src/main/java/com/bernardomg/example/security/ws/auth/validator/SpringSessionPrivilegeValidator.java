@@ -4,13 +4,13 @@ package com.bernardomg.example.security.ws.auth.validator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.bernardomg.example.security.auth.validator.PrivilegeValidator;
+import com.bernardomg.example.security.auth.validator.AuthorizationValidator;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class SpringSessionPrivilegeValidator
-        implements PrivilegeValidator {
+        implements AuthorizationValidator {
 
     @Override
     public final void checkPrivilege(final String privilege) {
