@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.ws.user.controller;
+package com.bernardomg.example.security.ws.auth.controller;
 
 import java.util.Objects;
 
@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bernardomg.example.security.adapter.user.service.UserService;
 import com.bernardomg.example.security.auth.model.User;
+import com.bernardomg.example.security.auth.service.UserService;
 
 /**
  * Rest controller for the users.

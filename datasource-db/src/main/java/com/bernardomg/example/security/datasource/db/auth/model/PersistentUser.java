@@ -39,6 +39,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.bernardomg.example.security.auth.model.Role;
 import com.bernardomg.example.security.auth.model.User;
 
 import lombok.Data;
@@ -120,5 +121,12 @@ public class PersistentUser implements User {
      */
     @Column(name = "name", nullable = false, unique = true, length = 60)
     private String                     username;
+
+    @Override
+    public void addRole(final Role role) {
+        if (role instanceof PersistentRole) {
+            roles.add((PersistentRole) role);
+        }
+    }
 
 }

@@ -32,6 +32,8 @@ package com.bernardomg.example.security.auth.model;
  */
 public interface User {
 
+    public void addRole(final Role role);
+
     public String getEmail();
 
     public Boolean getEnabled();

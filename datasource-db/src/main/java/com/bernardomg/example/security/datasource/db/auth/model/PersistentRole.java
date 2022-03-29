@@ -39,6 +39,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.bernardomg.example.security.auth.model.Privilege;
 import com.bernardomg.example.security.auth.model.Role;
 
 import lombok.Data;
@@ -89,6 +90,13 @@ public class PersistentRole implements Role, Serializable {
      */
     public PersistentRole() {
         super();
+    }
+
+    @Override
+    public void addPrivilege(final Privilege privilege) {
+        if (privilege instanceof PersistentPrivilege) {
+            privileges.add((PersistentPrivilege) privilege);
+        }
     }
 
 }

@@ -24,17 +24,27 @@
 
 package com.bernardomg.example.security.auth.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import lombok.Data;
 
 @Data
 public class DefaultUser implements User {
 
-    private String  email;
+    private String           email;
 
-    private Boolean enabled;
+    private Boolean          enabled;
 
-    private String  password;
+    private String           password;
 
-    private String  username;
+    private String           username;
+
+    private Collection<Role> roles = new ArrayList<>();
+
+    @Override
+    public void addRole(final Role role) {
+        roles.add(role);
+    }
 
 }

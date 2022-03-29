@@ -32,6 +32,8 @@ package com.bernardomg.example.security.auth.model;
  */
 public interface Role {
 
+    public void addPrivilege(final Privilege privilege);
+
     /**
      * Returns the user id.
      *
