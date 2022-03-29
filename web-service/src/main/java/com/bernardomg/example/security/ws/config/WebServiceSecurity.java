@@ -27,9 +27,13 @@ package com.bernardomg.example.security.ws.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -49,6 +53,25 @@ public class WebServiceSecurity extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    private final Customizer<FormLoginConfigurer<HttpSecurity>>
+            formLoginCustomizer() {
+        return c -> c.disable();
+    }
+
+    private final Customizer<LogoutConfigurer<HttpSecurity>>
+            logoutCustomizer() {
+        return c -> c.disable();
+    }
+
+    private final
+            Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry>
+            requestAuthCustomizer() {
+        return c -> c.antMatchers("/actuator/**", "/auth/**")
+            .permitAll()
+            .anyRequest()
+            .authenticated();
+    }
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth)
             throws Exception {
@@ -57,16 +80,24 @@ public class WebServiceSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .httpBasic()
-            .and()
-            .csrf()
+        final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry> authorizeRequestsCustomizer;
+        final Customizer<FormLoginConfigurer<HttpSecurity>> formLoginCustomizer;
+        final Customizer<LogoutConfigurer<HttpSecurity>> logoutCustomizer;
+
+        // Authorization
+        authorizeRequestsCustomizer = requestAuthCustomizer();
+        // Login form
+        formLoginCustomizer = formLoginCustomizer();
+        // Logout
+        logoutCustomizer = logoutCustomizer();
+
+        http.csrf()
             .disable()
-            .formLogin()
-            .disable()
+            .cors()
+            .and()
+            .authorizeRequests(authorizeRequestsCustomizer)
+            .formLogin(formLoginCustomizer)
+            .logout(logoutCustomizer)
             .httpBasic();
     }
 

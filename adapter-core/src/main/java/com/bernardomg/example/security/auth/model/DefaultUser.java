@@ -33,6 +33,8 @@ public class DefaultUser implements User {
 
     private Boolean enabled;
 
+    private String  password;
+
     private String  username;
 
 }

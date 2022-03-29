@@ -21,8 +21,8 @@ import com.bernardomg.example.security.extractor.EntitySaver;
 @Configuration
 @ConditionalOnProperty(value = "security.data.source", havingValue = "db",
         matchIfMissing = false)
-@EnableJpaRepositories("com.bernardomg.example.security.datasource.db.user.repository")
-@EntityScan("com.bernardomg.example.security.datasource.db.user.model")
+@EnableJpaRepositories("com.bernardomg.example.security.datasource.db.**.repository")
+@EntityScan("com.bernardomg.example.security.datasource.db.**.model")
 public class DbDatasourceAutoConfiguration {
 
     public DbDatasourceAutoConfiguration() {

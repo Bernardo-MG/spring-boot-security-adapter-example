@@ -30,15 +30,21 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bernardomg.example.security.auth.aspect.AuthorizedAspect;
 import com.bernardomg.example.security.auth.service.AuthorizationService;
+import com.bernardomg.example.security.datasource.db.auth.model.PersistentUser;
+import com.bernardomg.example.security.datasource.db.login.service.PersistentLoginService;
+import com.bernardomg.example.security.encoder.Encoder;
 import com.bernardomg.example.security.extractor.DefaultModelExtractor;
 import com.bernardomg.example.security.extractor.EntitySaver;
 import com.bernardomg.example.security.extractor.ModelExtractor;
 import com.bernardomg.example.security.extractor.factory.DefaultEntitySourceFactory;
 import com.bernardomg.example.security.extractor.factory.EntitySourceBuilder;
 import com.bernardomg.example.security.extractor.factory.EntitySourceFactory;
+import com.bernardomg.example.security.login.LoginService;
 import com.bernardomg.example.security.properties.DefaultPropertiesRegistryFactory;
 import com.bernardomg.example.security.properties.PropertiesRegistry;
 import com.bernardomg.example.security.properties.PropertiesRegistrySource;
@@ -46,6 +52,7 @@ import com.bernardomg.example.security.properties.SpringEnvironmentPropertiesReg
 import com.bernardomg.example.security.ws.adapter.service.AdapterLoaderService;
 import com.bernardomg.example.security.ws.adapter.service.DefaultAdapterLoaderService;
 import com.bernardomg.example.security.ws.auth.service.SpringAuthorizationService;
+import com.bernardomg.example.security.ws.security.encoder.SpringEncoderWrapper;
 
 @Configuration
 public class AdapterConfiguration {
@@ -57,7 +64,6 @@ public class AdapterConfiguration {
     @Bean("adapterLoaderService")
     public AdapterLoaderService
             getAdapterLoaderService(final ModelExtractor extractor) {
-
         return new DefaultAdapterLoaderService(extractor);
     }
 
@@ -72,10 +78,22 @@ public class AdapterConfiguration {
         return new AuthorizedAspect(service);
     }
 
+    @Bean("encoder")
+    public Encoder getEncoder(final PasswordEncoder passwordEncoder) {
+        return new SpringEncoderWrapper(passwordEncoder);
+    }
+
     @Bean("entitySourceFactory")
     public EntitySourceFactory getEntitySourceFactory(
             final Collection<EntitySourceBuilder> builders) {
         return new DefaultEntitySourceFactory(builders);
+    }
+
+    @Bean("loginService")
+    public LoginService getLoginService(
+            final JpaRepository<PersistentUser, Long> userRepo,
+            final Encoder encoder) {
+        return new PersistentLoginService(userRepo, encoder);
     }
 
     @Bean("modelExtractor")

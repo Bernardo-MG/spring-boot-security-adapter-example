@@ -36,6 +36,8 @@ public interface User {
 
     public Boolean getEnabled();
 
+    public String getPassword();
+
     /**
      * Returns the user username.
      *
@@ -46,6 +48,8 @@ public interface User {
     public void setEmail(final String email);
 
     public void setEnabled(final Boolean enabled);
+
+    public void setPassword(final String password);
 
     /**
      * Sets the user name.
