@@ -45,12 +45,12 @@ import com.bernardomg.example.security.ws.adapter.service.AdapterLoaderService;
 @RequestMapping("/rest/loader")
 public class LoaderController {
 
+    private final ModelExtractorConfiguration config;
+
     /**
      * Example entity service.
      */
     private final AdapterLoaderService        service;
-
-    private final ModelExtractorConfiguration config;
 
     /**
      * Constructs a controller with the specified dependencies.

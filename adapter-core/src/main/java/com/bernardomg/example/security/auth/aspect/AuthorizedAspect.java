@@ -11,7 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import com.bernardomg.example.security.auth.annotation.Authorized;
-import com.bernardomg.example.security.auth.validator.AuthorizationValidator;
+import com.bernardomg.example.security.auth.service.AuthorizationService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,15 +24,15 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 public class AuthorizedAspect {
 
-    private final AuthorizationValidator validator;
+    private final AuthorizationService service;
 
     /**
      * Default constructor.
      */
-    public AuthorizedAspect(final AuthorizationValidator vltr) {
+    public AuthorizedAspect(final AuthorizationService srv) {
         super();
 
-        validator = Objects.requireNonNull(vltr);
+        service = Objects.requireNonNull(srv);
     }
 
     @Pointcut("@within(com.bernardomg.example.security.auth.annotation.Authorized)")
@@ -57,7 +57,7 @@ public class AuthorizedAspect {
         if (annotation != null) {
             log.debug("Privilege: {}", annotation.value());
 
-            validator.checkPrivilege(annotation.value());
+            service.checkPrivilege(annotation.value());
         } else {
             log.warn("Could not find annotation in {}",
                 joinPoint.getSignature());
