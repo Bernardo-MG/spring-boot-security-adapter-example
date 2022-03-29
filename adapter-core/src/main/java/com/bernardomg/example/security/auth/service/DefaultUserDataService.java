@@ -14,7 +14,7 @@ import com.bernardomg.example.security.encoder.Encoder;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public final class DefaultUserService implements UserService {
+public final class DefaultUserDataService implements UserDataService {
 
     /**
      * Password encoder.
@@ -25,7 +25,7 @@ public final class DefaultUserService implements UserService {
 
     private final CrudRepository<User> userDataStore;
 
-    public DefaultUserService(final CrudRepository<User> userStore,
+    public DefaultUserDataService(final CrudRepository<User> userStore,
             final CrudRepository<Role> roleRepo, final Encoder encoder) {
         super();
 

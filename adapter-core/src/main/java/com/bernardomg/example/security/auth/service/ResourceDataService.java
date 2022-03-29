@@ -3,7 +3,7 @@ package com.bernardomg.example.security.auth.service;
 
 import com.bernardomg.example.security.auth.model.Resource;
 
-public interface ResourceService {
+public interface ResourceDataService {
 
     public Resource addResource(final Resource resource);
 

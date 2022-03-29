@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.example.security.auth.model.Privilege;
-import com.bernardomg.example.security.auth.service.PrivilegeService;
+import com.bernardomg.example.security.auth.service.PrivilegeDataService;
 
 @RestController
 @RequestMapping("/security/privilege")
 public class PrivilegeController {
 
-    private final PrivilegeService service;
+    private final PrivilegeDataService service;
 
     @Autowired
-    public PrivilegeController(final PrivilegeService userService) {
+    public PrivilegeController(final PrivilegeDataService userService) {
         super();
 
         service = Objects.requireNonNull(userService,

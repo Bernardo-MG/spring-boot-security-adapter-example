@@ -4,7 +4,7 @@ package com.bernardomg.example.security.auth.service;
 import com.bernardomg.example.security.auth.annotation.Authorized;
 import com.bernardomg.example.security.auth.model.User;
 
-public interface UserService {
+public interface UserDataService {
 
     public void addRoleToUser(final String username, final String role);
 

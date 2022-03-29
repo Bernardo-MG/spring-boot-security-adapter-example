@@ -3,7 +3,7 @@ package com.bernardomg.example.security.auth.service;
 
 import com.bernardomg.example.security.auth.model.Role;
 
-public interface RoleService {
+public interface RoleDataService {
 
     public void addPrivilegeToRole(final String role, final String privilege);
 

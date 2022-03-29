@@ -22,49 +22,34 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.ws.auth.controller;
+package com.bernardomg.example.security.datasource.db.configuration;
 
-import java.util.Objects;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.bernardomg.example.security.datasource.db.auth.model.repository.PersistentUserRepository;
+import com.bernardomg.example.security.datasource.db.auth.service.PersistentUserDetailsService;
+import com.bernardomg.example.security.encoder.Encoder;
+import com.bernardomg.example.security.login.LoginValidator;
+import com.bernardomg.example.security.login.PasswordLoginValidator;
 
-import com.bernardomg.example.security.auth.model.User;
-import com.bernardomg.example.security.auth.service.UserDataService;
+@Configuration
+public class DbLoginConfiguration {
 
-/**
- * Rest controller for the users.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- */
-@RestController
-@RequestMapping("/rest/user")
-public class UserController {
-
-    /**
-     * Example entity service.
-     */
-    private final UserDataService service;
-
-    /**
-     * Constructs a controller with the specified dependencies.
-     *
-     * @param userService
-     *            user service
-     */
-    @Autowired
-    public UserController(final UserDataService userService) {
+    public DbLoginConfiguration() {
         super();
-
-        service = Objects.requireNonNull(userService,
-            "Received a null pointer as service");
     }
 
-    @GetMapping
-    public Iterable<? extends User> read() {
-        return service.getUsers();
+    @Bean("loginValidator")
+    public LoginValidator getLoginValidator(final Encoder passwordEncoder) {
+        return new PasswordLoginValidator(passwordEncoder);
+    }
+
+    @Bean("userDetailsService")
+    public UserDetailsService getUserDetailsService(
+            final PersistentUserRepository userRepository) {
+        return new PersistentUserDetailsService(userRepository);
     }
 
 }

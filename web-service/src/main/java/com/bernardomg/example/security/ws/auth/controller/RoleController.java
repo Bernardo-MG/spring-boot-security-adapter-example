@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.example.security.auth.model.Role;
-import com.bernardomg.example.security.auth.service.RoleService;
+import com.bernardomg.example.security.auth.service.RoleDataService;
 import com.bernardomg.example.security.ws.auth.controller.model.RolePrivilegeRequest;
 
 @RestController
 @RequestMapping("/security/role")
 public class RoleController {
 
-    private final RoleService service;
+    private final RoleDataService service;
 
     @Autowired
-    public RoleController(final RoleService roleService) {
+    public RoleController(final RoleDataService roleService) {
         super();
 
         service = Objects.requireNonNull(roleService,

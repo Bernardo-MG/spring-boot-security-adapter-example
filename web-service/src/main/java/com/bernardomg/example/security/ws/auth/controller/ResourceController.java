@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.example.security.auth.model.Resource;
-import com.bernardomg.example.security.auth.service.ResourceService;
+import com.bernardomg.example.security.auth.service.ResourceDataService;
 
 @RestController
 @RequestMapping("/security/resource")
 public class ResourceController {
 
-    private final ResourceService service;
+    private final ResourceDataService service;
 
     @Autowired
-    public ResourceController(final ResourceService resourceService) {
+    public ResourceController(final ResourceDataService resourceService) {
         super();
 
         service = Objects.requireNonNull(resourceService,

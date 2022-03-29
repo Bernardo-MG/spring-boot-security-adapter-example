@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0f1d436f-6f87-4c47-afaa-c74eaaa48f48",
+		"_postman_id": "1bcd399f-1d99-41c5-a175-1138fb319739",
 		"name": "Security Adapter",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -481,6 +481,73 @@
 						"type": "text/javascript",
 						"exec": [
 							"pm.request.url=\"http://localhost:8080/auth\"+pm.request.url;"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Authorized request\",()=>{\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/user",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "1234",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "admin",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.request.url=\"http://localhost:8080/rest\"+pm.request.url;"
 						]
 					}
 				},

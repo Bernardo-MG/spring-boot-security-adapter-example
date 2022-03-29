@@ -6,11 +6,11 @@ import java.util.Objects;
 import com.bernardomg.example.security.auth.model.Privilege;
 import com.bernardomg.example.security.data.repository.CrudRepository;
 
-public final class DefaultPrivilegeService implements PrivilegeService {
+public final class DefaultPrivilegeDataService implements PrivilegeDataService {
 
     private final CrudRepository<Privilege> privilegeRepository;
 
-    public DefaultPrivilegeService(
+    public DefaultPrivilegeDataService(
             final CrudRepository<Privilege> privilegeRepo) {
         super();
 

@@ -6,11 +6,11 @@ import java.util.Objects;
 import com.bernardomg.example.security.auth.model.Resource;
 import com.bernardomg.example.security.data.repository.CrudRepository;
 
-public final class DefaultResourceService implements ResourceService {
+public final class DefaultResourceDataService implements ResourceDataService {
 
     private final CrudRepository<Resource> repository;
 
-    public DefaultResourceService(final CrudRepository<Resource> repo) {
+    public DefaultResourceDataService(final CrudRepository<Resource> repo) {
         super();
 
         repository = Objects.requireNonNull(repo);

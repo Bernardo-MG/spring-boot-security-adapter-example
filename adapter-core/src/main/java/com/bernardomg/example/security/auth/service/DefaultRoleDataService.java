@@ -13,13 +13,13 @@ import com.bernardomg.example.security.data.repository.CrudRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public final class DefaultRoleService implements RoleService {
+public final class DefaultRoleDataService implements RoleDataService {
 
     private final CrudRepository<Privilege> privilegeRepository;
 
     private final CrudRepository<Role>      roleRepository;
 
-    public DefaultRoleService(final CrudRepository<Role> roleRepo,
+    public DefaultRoleDataService(final CrudRepository<Role> roleRepo,
             final CrudRepository<Privilege> privilegeRepo) {
         super();
 

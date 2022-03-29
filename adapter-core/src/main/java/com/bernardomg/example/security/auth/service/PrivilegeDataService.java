@@ -3,7 +3,7 @@ package com.bernardomg.example.security.auth.service;
 
 import com.bernardomg.example.security.auth.model.Privilege;
 
-public interface PrivilegeService {
+public interface PrivilegeDataService {
 
     public Privilege addPrivilege(final Privilege privilege);
 
