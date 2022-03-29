@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.example.security.adapter.user.service.UserService;
-import com.bernardomg.example.security.user.model.User;
+import com.bernardomg.example.security.auth.model.User;
 
 /**
  * Rest controller for the users.

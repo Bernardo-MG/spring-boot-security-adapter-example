@@ -1,5 +1,5 @@
 
-package com.bernardomg.example.security.datasource.db.user.service;
+package com.bernardomg.example.security.datasource.db.auth.model.service;
 
 import java.util.Objects;
 
@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bernardomg.example.security.adapter.user.service.UserService;
 import com.bernardomg.example.security.auth.annotation.Authorized;
-import com.bernardomg.example.security.datasource.db.user.model.PersistentUser;
-import com.bernardomg.example.security.user.model.User;
+import com.bernardomg.example.security.auth.model.User;
+import com.bernardomg.example.security.datasource.db.auth.model.PersistentUser;
 
 public final class PersistentUserService implements UserService {
 

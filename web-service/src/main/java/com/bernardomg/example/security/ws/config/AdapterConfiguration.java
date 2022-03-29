@@ -36,8 +36,6 @@ import com.bernardomg.example.security.auth.validator.AuthorizationValidator;
 import com.bernardomg.example.security.extractor.DefaultModelExtractor;
 import com.bernardomg.example.security.extractor.EntitySaver;
 import com.bernardomg.example.security.extractor.ModelExtractor;
-import com.bernardomg.example.security.extractor.ModelExtractorConfiguration;
-import com.bernardomg.example.security.extractor.PropertiesRegistryModelExtractorConfiguration;
 import com.bernardomg.example.security.extractor.factory.DefaultEntitySourceFactory;
 import com.bernardomg.example.security.extractor.factory.EntitySourceBuilder;
 import com.bernardomg.example.security.extractor.factory.EntitySourceFactory;
@@ -57,20 +55,15 @@ public class AdapterConfiguration {
     }
 
     @Bean("adapterLoaderService")
-    public AdapterLoaderService getAdapterLoaderService(
-            final ModelExtractor extractor,
-            final PropertiesRegistry properties) {
-        final ModelExtractorConfiguration config;
+    public AdapterLoaderService
+            getAdapterLoaderService(final ModelExtractor extractor) {
 
-        config = new PropertiesRegistryModelExtractorConfiguration("keycloak",
-            properties);
-
-        return new DefaultAdapterLoaderService(extractor, config);
+        return new DefaultAdapterLoaderService(extractor);
     }
 
     @Bean("authorizedAspect")
-    public AuthorizedAspect
-            getAuthorizedAspect(final AuthorizationValidator privilegeValidator) {
+    public AuthorizedAspect getAuthorizedAspect(
+            final AuthorizationValidator privilegeValidator) {
         return new AuthorizedAspect(privilegeValidator);
     }
 

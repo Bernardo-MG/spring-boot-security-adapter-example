@@ -2,7 +2,7 @@
 package com.bernardomg.example.security.adapter.user.service;
 
 import com.bernardomg.example.security.auth.annotation.Authorized;
-import com.bernardomg.example.security.user.model.User;
+import com.bernardomg.example.security.auth.model.User;
 
 public interface UserService {
 

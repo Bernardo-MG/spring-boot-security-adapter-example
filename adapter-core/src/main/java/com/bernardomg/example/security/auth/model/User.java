@@ -22,44 +22,37 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.datasource.db.user.repository;
-
-import java.util.Optional;
-
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.bernardomg.example.security.datasource.db.user.model.PersistentUser;
+package com.bernardomg.example.security.auth.model;
 
 /**
- * Repository for users.
- * 
+ * User, and all its authentication data.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface PersistentUserRepository
-        extends JpaRepository<PersistentUser, Long> {
+public interface User {
+
+    public String getEmail();
+
+    public Boolean getEnabled();
 
     /**
-     * Returns the user details for the received email.
-     * 
-     * @param email
-     *            email to search for
-     * @return the user details for the received email
+     * Returns the user username.
+     *
+     * @return the user username
      */
-    public Optional<PersistentUser> findOneByEmail(final String email);
+    public String getUsername();
+
+    public void setEmail(final String email);
+
+    public void setEnabled(final Boolean enabled);
 
     /**
-     * Returns the user details for the received username.
-     * 
-     * @param username
-     *            username to search for
-     * @return the user details for the received username
+     * Sets the user name.
+     *
+     * @param name
+     *            the user name
      */
-    public Optional<PersistentUser> findOneByUsername(final String username);
-
-    @Override
-    @CacheEvict(cacheNames = { "user", "users", "roles" }, allEntries = true)
-    public <S extends PersistentUser> S save(S entity);
+    public void setUsername(final String name);
 
 }

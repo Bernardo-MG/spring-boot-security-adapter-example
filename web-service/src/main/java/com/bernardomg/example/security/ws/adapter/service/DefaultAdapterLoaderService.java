@@ -9,20 +9,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class DefaultAdapterLoaderService implements AdapterLoaderService {
 
-    private final ModelExtractorConfiguration config;
+    private final ModelExtractor extractor;
 
-    private final ModelExtractor              extractor;
-
-    public DefaultAdapterLoaderService(final ModelExtractor extractor,
-            final ModelExtractorConfiguration config) {
+    public DefaultAdapterLoaderService(final ModelExtractor extractor) {
         super();
 
         this.extractor = extractor;
-        this.config = config;
     }
 
     @Override
-    public void loadAll() {
+    public void load(final ModelExtractorConfiguration config) {
         log.debug("Loading users");
         extractor.extract(config);
     }

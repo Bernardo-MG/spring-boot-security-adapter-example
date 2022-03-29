@@ -8,9 +8,9 @@ import java.util.stream.StreamSupport;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bernardomg.example.security.datasource.db.user.model.PersistentUser;
+import com.bernardomg.example.security.auth.model.User;
+import com.bernardomg.example.security.datasource.db.auth.model.PersistentUser;
 import com.bernardomg.example.security.extractor.EntitySaver;
-import com.bernardomg.example.security.user.model.User;
 
 public final class PersistentUserEntitySaver implements EntitySaver<User> {
 

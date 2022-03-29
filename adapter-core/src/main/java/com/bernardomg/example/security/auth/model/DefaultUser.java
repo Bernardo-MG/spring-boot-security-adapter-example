@@ -22,29 +22,17 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.user.model;
+package com.bernardomg.example.security.auth.model;
 
-/**
- * User, and all its authentication data.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- *
- */
-public interface User {
+import lombok.Data;
 
-    /**
-     * Returns the user username.
-     *
-     * @return the user username
-     */
-    public String getUsername();
+@Data
+public class DefaultUser implements User {
 
-    /**
-     * Sets the user name.
-     *
-     * @param name
-     *            the user name
-     */
-    public void setUsername(final String name);
+    private String  email;
+
+    private Boolean enabled;
+
+    private String  username;
 
 }

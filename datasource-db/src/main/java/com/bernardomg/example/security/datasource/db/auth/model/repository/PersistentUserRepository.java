@@ -22,56 +22,35 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.datasource.db.user.model;
+package com.bernardomg.example.security.datasource.db.auth.model.repository;
 
-import java.io.Serializable;
+import java.util.Optional;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bernardomg.example.security.user.model.Privilege;
-
-import lombok.Data;
+import com.bernardomg.example.security.datasource.db.auth.model.PersistentUser;
 
 /**
- * Persistent implementation of {@code Privilege}.
+ * Repository for users.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Entity(name = "Privilege")
-@Table(name = "PRIVILEGES")
-@Data
-public class PersistentPrivilege implements Privilege, Serializable {
+public interface PersistentUserRepository
+        extends JpaRepository<PersistentUser, Long> {
 
     /**
-     * Serialization id.
+     * Returns the user details for the received username.
+     * 
+     * @param username
+     *            username to search for
+     * @return the user details for the received username
      */
-    private static final long serialVersionUID = 8513041662486312372L;
+    public Optional<PersistentUser> findOneByUsername(final String username);
 
-    /**
-     * Entity id.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Long              id;
-
-    /**
-     * Authority name.
-     */
-    @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String            name;
-
-    /**
-     * Default constructor.
-     */
-    public PersistentPrivilege() {
-        super();
-    }
+    @Override
+    @CacheEvict(cacheNames = { "user", "users", "roles" }, allEntries = true)
+    public <S extends PersistentUser> S save(S entity);
 
 }

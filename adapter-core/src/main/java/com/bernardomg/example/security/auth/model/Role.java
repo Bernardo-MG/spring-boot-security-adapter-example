@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.user.model;
+package com.bernardomg.example.security.auth.model;
 
 /**
  * User role. Groups a set of permissions.

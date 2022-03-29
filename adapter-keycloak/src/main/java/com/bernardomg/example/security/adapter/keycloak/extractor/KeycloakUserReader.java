@@ -7,9 +7,9 @@ import java.util.stream.StreamSupport;
 
 import com.bernardomg.example.security.adapter.keycloak.client.KeycloakApiClient;
 import com.bernardomg.example.security.adapter.keycloak.client.model.KeycloakUser;
+import com.bernardomg.example.security.auth.model.DefaultUser;
+import com.bernardomg.example.security.auth.model.User;
 import com.bernardomg.example.security.extractor.EntityReader;
-import com.bernardomg.example.security.user.model.DefaultUser;
-import com.bernardomg.example.security.user.model.User;
 
 public final class KeycloakUserReader implements EntityReader<User> {
 
@@ -42,6 +42,8 @@ public final class KeycloakUserReader implements EntityReader<User> {
 
         user = new DefaultUser();
         user.setUsername(kuser.getUsername());
+        user.setEmail(kuser.getEmail());
+        user.setEnabled(kuser.getEnabled());
 
         return user;
     }

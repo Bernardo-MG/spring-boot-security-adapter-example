@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.datasource.db.user.model;
+package com.bernardomg.example.security.datasource.db.auth.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.bernardomg.example.security.user.model.Role;
+import com.bernardomg.example.security.auth.model.Role;
 
 import lombok.Data;
 

@@ -22,23 +22,21 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.user.model;
+package com.bernardomg.example.security.auth.model;
 
-import lombok.Data;
-
-@Data
-public class DefaultUser implements User {
-
-    /**
-     * User name.
-     */
-    private String username;
+/**
+ * Role privilege. Represents a specific permission.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
+public interface Privilege {
 
     /**
-     * Default constructor.
+     * Returns the privilege name.
+     *
+     * @return the privilege name
      */
-    public DefaultUser() {
-        super();
-    }
+    public String getName();
 
 }

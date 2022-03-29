@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.datasource.db.user.model;
+package com.bernardomg.example.security.datasource.db.auth.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +39,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.bernardomg.example.security.user.model.User;
+import com.bernardomg.example.security.auth.model.User;
 
 import lombok.Data;
 
@@ -120,12 +120,5 @@ public class PersistentUser implements User {
      */
     @Column(name = "name", nullable = false, unique = true, length = 60)
     private String                     username;
-
-    /**
-     * Default constructor.
-     */
-    public PersistentUser() {
-        super();
-    }
 
 }

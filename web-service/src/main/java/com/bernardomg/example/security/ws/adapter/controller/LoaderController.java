@@ -31,6 +31,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bernardomg.example.security.extractor.ModelExtractorConfiguration;
+import com.bernardomg.example.security.extractor.PropertiesRegistryModelExtractorConfiguration;
+import com.bernardomg.example.security.properties.PropertiesRegistry;
 import com.bernardomg.example.security.ws.adapter.service.AdapterLoaderService;
 
 /**
@@ -45,7 +48,9 @@ public class LoaderController {
     /**
      * Example entity service.
      */
-    private final AdapterLoaderService service;
+    private final AdapterLoaderService        service;
+
+    private final ModelExtractorConfiguration config;
 
     /**
      * Constructs a controller with the specified dependencies.
@@ -54,16 +59,20 @@ public class LoaderController {
      *            user service
      */
     @Autowired
-    public LoaderController(final AdapterLoaderService userService) {
+    public LoaderController(final AdapterLoaderService userService,
+            final PropertiesRegistry properties) {
         super();
 
         service = Objects.requireNonNull(userService,
             "Received a null pointer as service");
+
+        config = new PropertiesRegistryModelExtractorConfiguration("keycloak",
+            properties);
     }
 
     @PutMapping("/load")
     public void load() {
-        service.loadAll();
+        service.load(config);
     }
 
 }
