@@ -30,12 +30,12 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bernardomg.example.security.auth.aspect.AuthorizedAspect;
+import com.bernardomg.example.security.auth.model.User;
 import com.bernardomg.example.security.auth.service.AuthorizationService;
-import com.bernardomg.example.security.datasource.db.auth.model.PersistentUser;
+import com.bernardomg.example.security.data.repository.CrudRepository;
 import com.bernardomg.example.security.datasource.db.login.service.PersistentLoginService;
 import com.bernardomg.example.security.encoder.Encoder;
 import com.bernardomg.example.security.extractor.DefaultModelExtractor;
@@ -45,6 +45,7 @@ import com.bernardomg.example.security.extractor.factory.DefaultEntitySourceFact
 import com.bernardomg.example.security.extractor.factory.EntitySourceBuilder;
 import com.bernardomg.example.security.extractor.factory.EntitySourceFactory;
 import com.bernardomg.example.security.login.LoginService;
+import com.bernardomg.example.security.login.LoginValidator;
 import com.bernardomg.example.security.properties.DefaultPropertiesRegistryFactory;
 import com.bernardomg.example.security.properties.PropertiesRegistry;
 import com.bernardomg.example.security.properties.PropertiesRegistrySource;
@@ -90,10 +91,9 @@ public class AdapterConfiguration {
     }
 
     @Bean("loginService")
-    public LoginService getLoginService(
-            final JpaRepository<PersistentUser, Long> userRepo,
-            final Encoder encoder) {
-        return new PersistentLoginService(userRepo, encoder);
+    public LoginService getLoginService(final CrudRepository<User> userRepo,
+            final LoginValidator loginVal) {
+        return new PersistentLoginService(userRepo, loginVal);
     }
 
     @Bean("modelExtractor")

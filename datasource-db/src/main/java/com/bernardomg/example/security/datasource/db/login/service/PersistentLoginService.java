@@ -4,57 +4,50 @@ package com.bernardomg.example.security.datasource.db.login.service;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.springframework.data.domain.Example;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.bernardomg.example.security.auth.model.DefaultUser;
 import com.bernardomg.example.security.auth.model.User;
-import com.bernardomg.example.security.datasource.db.auth.model.PersistentUser;
-import com.bernardomg.example.security.encoder.Encoder;
+import com.bernardomg.example.security.data.repository.CrudRepository;
 import com.bernardomg.example.security.login.LoginService;
+import com.bernardomg.example.security.login.LoginValidator;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class PersistentLoginService implements LoginService {
 
-    private final Encoder                             passwordEncoder;
+    private final LoginValidator       loginValidator;
 
-    private final JpaRepository<PersistentUser, Long> userRepository;
+    private final CrudRepository<User> userRepository;
 
-    public PersistentLoginService(
-            final JpaRepository<PersistentUser, Long> userRepo,
-            final Encoder encoder) {
+    public PersistentLoginService(final CrudRepository<User> userRepo,
+            final LoginValidator loginVal) {
         super();
 
         userRepository = Objects.requireNonNull(userRepo);
-        passwordEncoder = Objects.requireNonNull(encoder);
+        loginValidator = Objects.requireNonNull(loginVal);
     }
 
     @Override
     public final User login(final User user) {
         final Optional<? extends User> details;
-        final PersistentUser userSample;
+        final User userSample;
         final Optional<User> result;
-        final Boolean logged;
-        final Example<PersistentUser> example;
+        final Boolean valid;
 
         log.debug("Attempting to log in {}", user.getUsername());
 
-        userSample = new PersistentUser();
+        userSample = new DefaultUser();
         userSample.setUsername(user.getUsername());
 
-        example = Example.of(userSample);
-
-        details = userRepository.findOne(example);
+        details = userRepository.findOne(userSample);
 
         if (details.isEmpty()) {
             log.debug("No user found");
             result = Optional.empty();
         } else {
-            logged = passwordEncoder.matches(user.getPassword(), details.get()
-                .getPassword());
-            if (logged) {
+            valid = loginValidator.valid(user, details.map(User.class::cast)
+                .get());
+            if (valid) {
                 result = details.map(User.class::cast);
                 log.debug("Found user for {}", user.getUsername());
             } else {
