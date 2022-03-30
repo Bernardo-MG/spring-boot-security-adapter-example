@@ -16,7 +16,7 @@ import com.bernardomg.example.security.auth.model.Resource;
 import com.bernardomg.example.security.auth.service.ResourceDataService;
 
 @RestController
-@RequestMapping("/security/resource")
+@RequestMapping("/rest/resource")
 public class ResourceController {
 
     private final ResourceDataService service;

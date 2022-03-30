@@ -29,26 +29,18 @@ databaseChangeLog:
                   name: credentials_expired
                   type: boolean
                   defaultValue: false
-                  constraints:
-                     nullable: false
             -  column:
                   name: enabled
                   type: boolean
                   defaultValue: true
-                  constraints:
-                     nullable: false
             -  column:
                   name: expired
                   type: boolean
                   defaultValue: false
-                  constraints:
-                     nullable: false
             -  column:
                   name: locked
                   type: boolean
                   defaultValue: false
-                  constraints:
-                     nullable: false
 -  changeSet:
       id: security_roles
       author: Bernardo

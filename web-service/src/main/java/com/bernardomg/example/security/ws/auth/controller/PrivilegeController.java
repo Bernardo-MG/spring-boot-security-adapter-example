@@ -16,7 +16,7 @@ import com.bernardomg.example.security.auth.model.Privilege;
 import com.bernardomg.example.security.auth.service.PrivilegeDataService;
 
 @RestController
-@RequestMapping("/security/privilege")
+@RequestMapping("/rest/privilege")
 public class PrivilegeController {
 
     private final PrivilegeDataService service;

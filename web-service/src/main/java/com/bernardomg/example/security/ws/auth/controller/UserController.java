@@ -27,12 +27,17 @@ package com.bernardomg.example.security.ws.auth.controller;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.example.security.auth.model.User;
 import com.bernardomg.example.security.auth.service.UserDataService;
+import com.bernardomg.example.security.ws.auth.controller.model.UserRoleRequest;
 
 /**
  * Rest controller for the users.
@@ -62,9 +67,29 @@ public class UserController {
             "Received a null pointer as service");
     }
 
+    @PostMapping("/role")
+    public void addRole(@RequestBody final UserRoleRequest request) {
+        service.addRoleToUser(request.getUsername(), request.getRole());
+    }
+
+    @PostMapping
+    public User create(@RequestBody final User user) {
+        return service.createUser(user);
+    }
+
+    @DeleteMapping
+    public void delete(@RequestBody final User user) {
+        service.deleteUser(user);
+    }
+
     @GetMapping
     public Iterable<? extends User> read() {
         return service.getUsers();
+    }
+
+    @PutMapping
+    public User update(@RequestBody final User user) {
+        return service.updateUser(user);
     }
 
 }

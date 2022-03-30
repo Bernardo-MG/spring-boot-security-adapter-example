@@ -36,14 +36,14 @@ INSERT INTO USERS (name, password, enabled, locked, expired, CREDENTIALS_EXPIRED
    ('expCreds',   '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   true);
 
 INSERT INTO ROLES (name) VALUES
-   ('ADMIN'),
-   ('USER');
+   ('admin'),
+   ('user');
 
 INSERT INTO PRIVILEGES (name) VALUES
-   ('CREATE_USER'),
-   ('READ_USER'),
-   ('UPDATE_USER'),
-   ('DELETE_USER');
+   ('create'),
+   ('read'),
+   ('update'),
+   ('delete');
 
 INSERT INTO ROLE_PRIVILEGES (role_id, privilege_id) VALUES
    (1, 1),

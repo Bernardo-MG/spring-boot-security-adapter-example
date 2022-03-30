@@ -17,7 +17,7 @@ import com.bernardomg.example.security.auth.service.RoleDataService;
 import com.bernardomg.example.security.ws.auth.controller.model.RolePrivilegeRequest;
 
 @RestController
-@RequestMapping("/security/role")
+@RequestMapping("/rest/role")
 public class RoleController {
 
     private final RoleDataService service;
