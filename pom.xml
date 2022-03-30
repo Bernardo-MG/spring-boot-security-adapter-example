@@ -23,6 +23,7 @@
       <module>adapter-core</module>
       <module>adapter-keycloak</module>
       <module>datasource-db</module>
+      <module>adapter-spring</module>
       <module>web-service</module>
    </modules>
 

@@ -49,11 +49,11 @@ import com.bernardomg.example.security.login.LoginValidator;
 import com.bernardomg.example.security.properties.DefaultPropertiesRegistryFactory;
 import com.bernardomg.example.security.properties.PropertiesRegistry;
 import com.bernardomg.example.security.properties.PropertiesRegistrySource;
-import com.bernardomg.example.security.properties.SpringEnvironmentPropertiesRegistrySource;
-import com.bernardomg.example.security.ws.adapter.service.AdapterLoaderService;
-import com.bernardomg.example.security.ws.adapter.service.DefaultAdapterLoaderService;
-import com.bernardomg.example.security.ws.auth.service.SpringAuthorizationService;
-import com.bernardomg.example.security.ws.security.encoder.SpringEncoderWrapper;
+import com.bernardomg.example.security.spring.adapter.service.AdapterLoaderService;
+import com.bernardomg.example.security.spring.adapter.service.DefaultAdapterLoaderService;
+import com.bernardomg.example.security.spring.auth.service.SpringAuthorizationService;
+import com.bernardomg.example.security.spring.properties.SpringEnvironmentPropertiesRegistrySource;
+import com.bernardomg.example.security.spring.security.encoder.SpringEncoderWrapper;
 
 @Configuration
 public class AdapterConfiguration {
