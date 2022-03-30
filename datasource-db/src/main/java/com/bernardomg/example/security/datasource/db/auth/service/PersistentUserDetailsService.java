@@ -39,10 +39,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.bernardomg.example.security.auth.model.DefaultUser;
 import com.bernardomg.example.security.auth.model.Privilege;
 import com.bernardomg.example.security.auth.model.Role;
+import com.bernardomg.example.security.data.repository.CrudRepository;
 import com.bernardomg.example.security.datasource.db.auth.model.PersistentUser;
-import com.bernardomg.example.security.datasource.db.auth.model.repository.PersistentUserRepository;
 
 /**
  * User details service which takes the data from the persistence layer.
@@ -61,41 +62,45 @@ public final class PersistentUserDetailsService implements UserDetailsService {
     /**
      * Logger.
      */
-    private static final Logger            LOGGER = LoggerFactory
+    private static final Logger                                                   LOGGER = LoggerFactory
         .getLogger(PersistentUserDetailsService.class);
 
     /**
      * Repository for the user data.
      */
-    private final PersistentUserRepository userRepo;
+    private final CrudRepository<com.bernardomg.example.security.auth.model.User> userRepository;
 
     /**
      * Constructs a user details service.
      * 
-     * @param userRepository
+     * @param userRepo
      *            repository for user details
      */
     public PersistentUserDetailsService(
-            final PersistentUserRepository userRepository) {
+            final CrudRepository<com.bernardomg.example.security.auth.model.User> userRepo) {
         super();
 
-        userRepo = Objects.requireNonNull(userRepository,
+        userRepository = Objects.requireNonNull(userRepo,
             "Received a null pointer as repository");
     }
 
     @Override
     public final UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
-        final Optional<PersistentUser> user;
+        final Optional<? extends com.bernardomg.example.security.auth.model.User> user;
         final UserDetails details;
+        final com.bernardomg.example.security.auth.model.User userSample;
 
         LOGGER.debug("Asked for username {}", username);
 
-        user = userRepo.findOneByUsername(username.toLowerCase());
+        userSample = new DefaultUser();
+        userSample.setUsername(username);
+
+        user = userRepository.findOne(userSample);
 
         if (user.isPresent()) {
             LOGGER.debug("Username {} found in DB", username);
-            details = toUserDetails(user.get());
+            details = toUserDetails((PersistentUser) user.get());
         } else {
             LOGGER.debug("Username {} not found in DB", username);
             throw new UsernameNotFoundException(username);

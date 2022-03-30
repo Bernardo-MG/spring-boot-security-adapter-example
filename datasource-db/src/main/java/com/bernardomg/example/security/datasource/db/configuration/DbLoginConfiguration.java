@@ -28,7 +28,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.bernardomg.example.security.datasource.db.auth.model.repository.PersistentUserRepository;
+import com.bernardomg.example.security.auth.model.User;
+import com.bernardomg.example.security.data.repository.CrudRepository;
 import com.bernardomg.example.security.datasource.db.auth.service.PersistentUserDetailsService;
 import com.bernardomg.example.security.encoder.Encoder;
 import com.bernardomg.example.security.login.LoginValidator;
@@ -47,8 +48,8 @@ public class DbLoginConfiguration {
     }
 
     @Bean("userDetailsService")
-    public UserDetailsService getUserDetailsService(
-            final PersistentUserRepository userRepository) {
+    public UserDetailsService
+            getUserDetailsService(final CrudRepository<User> userRepository) {
         return new PersistentUserDetailsService(userRepository);
     }
 

@@ -45,6 +45,7 @@ public final class PersistentLoginService implements LoginService {
             log.debug("No user found");
             result = Optional.empty();
         } else {
+            log.debug("Applying validar {}", loginValidator);
             valid = loginValidator.valid(user, details.map(User.class::cast)
                 .get());
             if (valid) {
