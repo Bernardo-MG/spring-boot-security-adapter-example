@@ -30,9 +30,9 @@ import org.springframework.context.annotation.Configuration;
 import com.bernardomg.example.security.user.serialization.UserModelSerializationModule;
 
 @Configuration
-public class JacksonConfig {
+public class JacksonConfiguration {
 
-    public JacksonConfig() {
+    public JacksonConfiguration() {
         super();
     }
 

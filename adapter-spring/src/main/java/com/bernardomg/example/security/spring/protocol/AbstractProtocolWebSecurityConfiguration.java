@@ -22,60 +22,28 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.security.ws.config;
+package com.bernardomg.example.security.spring.protocol;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class WebServiceSecurity extends WebSecurityConfigurerAdapter {
+public abstract class AbstractProtocolWebSecurityConfiguration
+        extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final Collection<String> allowedUrls = new ArrayList<>();
 
-    public WebServiceSecurity() {
+    public AbstractProtocolWebSecurityConfiguration() {
         super();
-    }
-
-    @Bean("passwordEncoder")
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    private final Customizer<FormLoginConfigurer<HttpSecurity>>
-            formLoginCustomizer() {
-        return c -> c.disable();
-    }
-
-    private final Customizer<LogoutConfigurer<HttpSecurity>>
-            logoutCustomizer() {
-        return c -> c.disable();
-    }
-
-    private final
-            Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry>
-            requestAuthCustomizer() {
-        return c -> c.antMatchers("/actuator/**", "/auth/**")
-            .permitAll()
-            .anyRequest()
-            .authenticated();
-    }
-
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.userDetailsService(userDetailsService);
     }
 
     @Override
@@ -97,8 +65,34 @@ public class WebServiceSecurity extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests(authorizeRequestsCustomizer)
             .formLogin(formLoginCustomizer)
-            .logout(logoutCustomizer)
-            .httpBasic();
+            .logout(logoutCustomizer);
+    }
+
+    protected Customizer<FormLoginConfigurer<HttpSecurity>>
+            formLoginCustomizer() {
+        return c -> c.disable();
+    }
+
+    protected Customizer<LogoutConfigurer<HttpSecurity>> logoutCustomizer() {
+        return c -> c.disable();
+    }
+
+    protected void requestAuthConfigurer(
+            final ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry c) {
+        if (!allowedUrls.isEmpty()) {
+            c.antMatchers(allowedUrls.toArray(new String[allowedUrls.size()]))
+                .permitAll();
+        }
+    }
+
+    protected
+            Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry>
+            requestAuthCustomizer() {
+        return this::requestAuthConfigurer;
+    }
+
+    protected final void setAllowedUrls(final String urls) {
+        allowedUrls.addAll(Arrays.asList(urls.split(",")));
     }
 
 }
