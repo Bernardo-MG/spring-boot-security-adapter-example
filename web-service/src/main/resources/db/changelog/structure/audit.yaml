@@ -1,0 +1,23 @@
+databaseChangeLog:
+-  changeSet:
+      id: remember_me_tables
+      author: Bernardo
+      changes:
+      -  createTable:
+            tableName: AUDIT_EVENT
+            columns:
+            -  column:
+                  name: timestamp
+                  type: timestamp
+                  constraints:
+                     nullable: false
+            -  column:
+                  name: author
+                  type: varchar(60)
+                  constraints:
+                     nullable: false
+            -  column:
+                  name: type
+                  type: varchar(60)
+                  constraints:
+                     nullable: false

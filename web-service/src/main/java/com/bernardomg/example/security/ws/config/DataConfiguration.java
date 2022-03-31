@@ -24,6 +24,7 @@
 
 package com.bernardomg.example.security.ws.config;
 
+import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -31,6 +32,7 @@ import com.bernardomg.example.security.auth.model.Privilege;
 import com.bernardomg.example.security.auth.model.Resource;
 import com.bernardomg.example.security.auth.model.Role;
 import com.bernardomg.example.security.auth.model.User;
+import com.bernardomg.example.security.auth.service.AuditDataService;
 import com.bernardomg.example.security.auth.service.DefaultPrivilegeDataService;
 import com.bernardomg.example.security.auth.service.DefaultResourceDataService;
 import com.bernardomg.example.security.auth.service.DefaultRoleDataService;
@@ -41,12 +43,19 @@ import com.bernardomg.example.security.auth.service.RoleDataService;
 import com.bernardomg.example.security.auth.service.UserDataService;
 import com.bernardomg.example.security.data.repository.CrudRepository;
 import com.bernardomg.example.security.encoder.Encoder;
+import com.bernardomg.example.security.spring.audit.service.SpringAuditDataService;
 
 @Configuration
 public class DataConfiguration {
 
     public DataConfiguration() {
         super();
+    }
+
+    @Bean("auditDataService")
+    public AuditDataService
+            getAuditDataService(final AuditEventRepository auditEventRepo) {
+        return new SpringAuditDataService(auditEventRepo);
     }
 
     @Bean("privilegeDataService")

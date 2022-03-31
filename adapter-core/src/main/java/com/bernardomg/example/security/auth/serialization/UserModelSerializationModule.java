@@ -1,5 +1,5 @@
 
-package com.bernardomg.example.security.user.serialization;
+package com.bernardomg.example.security.auth.serialization;
 
 import com.bernardomg.example.security.auth.model.Action;
 import com.bernardomg.example.security.auth.model.DefaultAction;

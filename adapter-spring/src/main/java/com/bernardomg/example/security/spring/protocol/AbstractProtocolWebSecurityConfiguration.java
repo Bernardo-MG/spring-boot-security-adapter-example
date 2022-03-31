@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,6 +45,18 @@ public abstract class AbstractProtocolWebSecurityConfiguration
 
     public AbstractProtocolWebSecurityConfiguration() {
         super();
+
+        allowedUrls.add("/actuator/**");
+        allowedUrls.add("/login/**");
+    }
+
+    @Value("${security.url.allowed:}")
+    public void loadAllowedUrls(final String urls) {
+
+        if (!urls.isBlank()) {
+            allowedUrls.addAll(Arrays.asList(urls.split(",")));
+        }
+
     }
 
     @Override
@@ -89,10 +102,6 @@ public abstract class AbstractProtocolWebSecurityConfiguration
             Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry>
             requestAuthCustomizer() {
         return this::requestAuthConfigurer;
-    }
-
-    protected final void setAllowedUrls(final String urls) {
-        allowedUrls.addAll(Arrays.asList(urls.split(",")));
     }
 
 }

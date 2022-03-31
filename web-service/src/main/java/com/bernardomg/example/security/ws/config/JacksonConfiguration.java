@@ -27,7 +27,7 @@ package com.bernardomg.example.security.ws.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.bernardomg.example.security.user.serialization.UserModelSerializationModule;
+import com.bernardomg.example.security.auth.serialization.UserModelSerializationModule;
 
 @Configuration
 public class JacksonConfiguration {
