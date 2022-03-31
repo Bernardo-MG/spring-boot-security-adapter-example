@@ -28,11 +28,11 @@ import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.bernardomg.example.security.audit.service.AuditDataService;
 import com.bernardomg.example.security.auth.model.Privilege;
 import com.bernardomg.example.security.auth.model.Resource;
 import com.bernardomg.example.security.auth.model.Role;
 import com.bernardomg.example.security.auth.model.User;
-import com.bernardomg.example.security.auth.service.AuditDataService;
 import com.bernardomg.example.security.auth.service.DefaultPrivilegeDataService;
 import com.bernardomg.example.security.auth.service.DefaultResourceDataService;
 import com.bernardomg.example.security.auth.service.DefaultRoleDataService;

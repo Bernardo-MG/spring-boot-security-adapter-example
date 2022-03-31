@@ -8,7 +8,7 @@ import org.springframework.boot.actuate.audit.AuditEventRepository;
 
 import com.bernardomg.example.security.audit.model.AuditEvent;
 import com.bernardomg.example.security.audit.model.DefaultAuditEvent;
-import com.bernardomg.example.security.auth.service.AuditDataService;
+import com.bernardomg.example.security.audit.service.AuditDataService;
 
 public final class SpringAuditDataService implements AuditDataService {
 
@@ -40,6 +40,17 @@ public final class SpringAuditDataService implements AuditDataService {
             .stream()
             .map(this::toAuditEvent)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public void addAuditEvent(final AuditEvent event) {
+        final org.springframework.boot.actuate.audit.AuditEvent toSave;
+
+        toSave = new org.springframework.boot.actuate.audit.AuditEvent(
+            event.getTimestamp(), event.getAuthor(), event.getType(),
+            event.getData());
+
+        auditEventRepository.add(toSave);
     }
 
 }

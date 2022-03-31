@@ -38,9 +38,9 @@ public class DefaultUser implements User {
 
     private String           password;
 
-    private String           username;
-
     private Collection<Role> roles = new ArrayList<>();
+
+    private String           username;
 
     @Override
     public void addRole(final Role role) {

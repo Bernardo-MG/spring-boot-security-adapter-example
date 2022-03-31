@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernardomg.example.security.audit.model.AuditEvent;
-import com.bernardomg.example.security.auth.service.AuditDataService;
+import com.bernardomg.example.security.audit.service.AuditDataService;
 
 @RestController
 @RequestMapping("/rest/audit")

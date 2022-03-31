@@ -10,12 +10,12 @@ import lombok.Data;
 @Data
 public class DefaultAuditEvent implements AuditEvent {
 
-    private Instant             timestamp;
-
     private String              author;
 
-    private String              type;
-
     private Map<String, Object> data = new HashMap<>();
+
+    private Instant             timestamp;
+
+    private String              type;
 
 }

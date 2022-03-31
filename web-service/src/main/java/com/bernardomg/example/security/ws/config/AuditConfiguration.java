@@ -29,6 +29,9 @@ import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.bernardomg.example.security.audit.service.AuditDataService;
+import com.bernardomg.example.security.spring.audit.aspect.CrudAuditAspect;
+
 @Configuration
 public class AuditConfiguration {
 
@@ -39,6 +42,11 @@ public class AuditConfiguration {
     @Bean("auditEventRepository")
     public AuditEventRepository getAuditEventRepository() {
         return new InMemoryAuditEventRepository();
+    }
+
+    @Bean("crudAuditAspect")
+    public CrudAuditAspect getCrudAuditAspect(final AuditDataService service) {
+        return new CrudAuditAspect(service);
     }
 
 }

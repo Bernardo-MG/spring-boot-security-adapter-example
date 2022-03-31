@@ -6,12 +6,12 @@ import java.util.Map;
 
 public interface AuditEvent {
 
-    public Instant getTimestamp();
-
     public String getAuthor();
 
-    public String getType();
-
     public Map<String, Object> getData();
+
+    public Instant getTimestamp();
+
+    public String getType();
 
 }
