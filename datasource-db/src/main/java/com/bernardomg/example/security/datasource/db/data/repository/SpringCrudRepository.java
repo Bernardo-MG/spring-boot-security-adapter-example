@@ -36,12 +36,12 @@ public final class SpringCrudRepository<T, P extends T, ID>
     }
 
     @Override
-    public Iterable<? extends T> findAll() {
+    public Iterable<? extends T> readAll() {
         return wrapped.findAll();
     }
 
     @Override
-    public Optional<? extends T> findOne(final T sample) {
+    public Optional<? extends T> readOne(final T sample) {
         final Example<P> example;
         final P persistent;
 

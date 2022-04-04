@@ -17,7 +17,27 @@ public final class SpringAuditDataService implements AuditDataService {
     public SpringAuditDataService(final AuditEventRepository auditEventRepo) {
         super();
 
-        this.auditEventRepository = auditEventRepo;
+        auditEventRepository = auditEventRepo;
+    }
+
+    @Override
+    public void addAuditEvent(final AuditEvent event) {
+        final org.springframework.boot.actuate.audit.AuditEvent toSave;
+
+        toSave = new org.springframework.boot.actuate.audit.AuditEvent(
+            event.getTimestamp(), event.getAuthor(), event.getType(),
+            event.getData());
+
+        auditEventRepository.add(toSave);
+    }
+
+    @Override
+    public Iterable<? extends AuditEvent> getAuditEvents(final String principal,
+            final Instant after, final String type) {
+        return auditEventRepository.find(principal, after, type)
+            .stream()
+            .map(this::toAuditEvent)
+            .collect(Collectors.toList());
     }
 
     private final AuditEvent toAuditEvent(
@@ -31,26 +51,6 @@ public final class SpringAuditDataService implements AuditDataService {
         result.setData(event.getData());
 
         return result;
-    }
-
-    @Override
-    public Iterable<? extends AuditEvent> getAuditEvents(final String principal,
-            final Instant after, final String type) {
-        return auditEventRepository.find(principal, after, type)
-            .stream()
-            .map(this::toAuditEvent)
-            .collect(Collectors.toList());
-    }
-
-    @Override
-    public void addAuditEvent(final AuditEvent event) {
-        final org.springframework.boot.actuate.audit.AuditEvent toSave;
-
-        toSave = new org.springframework.boot.actuate.audit.AuditEvent(
-            event.getTimestamp(), event.getAuthor(), event.getType(),
-            event.getData());
-
-        auditEventRepository.add(toSave);
     }
 
 }

@@ -39,7 +39,7 @@ public final class PersistentLoginService implements LoginService {
         userSample = new DefaultUser();
         userSample.setUsername(user.getUsername());
 
-        details = userRepository.findOne(userSample);
+        details = userRepository.readOne(userSample);
 
         if (details.isEmpty()) {
             log.debug("No user found");

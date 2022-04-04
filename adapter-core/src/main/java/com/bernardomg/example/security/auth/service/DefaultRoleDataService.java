@@ -39,11 +39,11 @@ public final class DefaultRoleDataService implements RoleDataService {
 
         roleSample = new DefaultRole();
         roleSample.setName(rolename);
-        foundRole = roleRepository.findOne(roleSample);
+        foundRole = roleRepository.readOne(roleSample);
         if (foundRole.isPresent()) {
             privilegeSample = new DefaultPrivilege();
             privilegeSample.setName(privilegename);
-            foundPrivilege = privilegeRepository.findOne(privilegeSample);
+            foundPrivilege = privilegeRepository.readOne(privilegeSample);
             if (foundPrivilege.isPresent()) {
                 role = foundRole.get();
                 privilege = foundPrivilege.get();
@@ -75,7 +75,7 @@ public final class DefaultRoleDataService implements RoleDataService {
 
     @Override
     public final Iterable<? extends Role> getRoles() {
-        return roleRepository.findAll();
+        return roleRepository.readAll();
     }
 
     @Override

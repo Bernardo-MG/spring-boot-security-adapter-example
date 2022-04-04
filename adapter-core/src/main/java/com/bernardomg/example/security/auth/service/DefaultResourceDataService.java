@@ -33,7 +33,7 @@ public final class DefaultResourceDataService implements ResourceDataService {
 
     @Override
     public final Iterable<? extends Resource> getResources() {
-        return repository.findAll();
+        return repository.readAll();
     }
 
     @Override

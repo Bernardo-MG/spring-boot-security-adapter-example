@@ -46,11 +46,11 @@ public final class DefaultUserDataService implements UserDataService {
 
         userSample = new DefaultUser();
         userSample.setUsername(username);
-        foundUser = userDataStore.findOne(userSample);
+        foundUser = userDataStore.readOne(userSample);
         if (foundUser.isPresent()) {
             roleSample = new DefaultRole();
             roleSample.setName(rolename);
-            foundRole = roleDataStore.findOne(roleSample);
+            foundRole = roleDataStore.readOne(roleSample);
             if (foundRole.isPresent()) {
                 user = foundUser.get();
                 role = foundRole.get();
@@ -85,7 +85,7 @@ public final class DefaultUserDataService implements UserDataService {
 
     @Override
     public final Iterable<? extends User> getUsers() {
-        return userDataStore.findAll();
+        return userDataStore.readAll();
     }
 
     @Override

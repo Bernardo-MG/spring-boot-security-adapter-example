@@ -66,7 +66,9 @@ public class CrudAuditAspect {
                 .getAuthentication();
 
             event = new DefaultAuditEvent();
-            event.setAuthor(authentication.getName());
+            if (authentication != null) {
+                event.setAuthor(authentication.getName());
+            }
             // event.setData(null);
             event.setTimestamp(Instant.now());
             event.setType(type);

@@ -34,7 +34,7 @@ public final class DefaultPrivilegeDataService implements PrivilegeDataService {
 
     @Override
     public final Iterable<? extends Privilege> getPrivileges() {
-        return privilegeRepository.findAll();
+        return privilegeRepository.readAll();
     }
 
     @Override

@@ -96,7 +96,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         userSample = new DefaultUser();
         userSample.setUsername(username);
 
-        user = userRepository.findOne(userSample);
+        user = userRepository.readOne(userSample);
 
         if (user.isPresent()) {
             LOGGER.debug("Username {} found in DB", username);

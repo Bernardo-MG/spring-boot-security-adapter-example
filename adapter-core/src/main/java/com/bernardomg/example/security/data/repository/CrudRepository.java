@@ -7,9 +7,9 @@ public interface CrudRepository<T> {
 
     public void delete(final T data);
 
-    public Iterable<? extends T> findAll();
+    public Iterable<? extends T> readAll();
 
-    public Optional<? extends T> findOne(final T sample);
+    public Optional<? extends T> readOne(final T sample);
 
     public T save(final T data);
 
