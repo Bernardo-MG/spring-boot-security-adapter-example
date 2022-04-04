@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import com.bernardomg.example.security.extractor.EntitySource;
-import com.bernardomg.example.security.extractor.ModelExtractorConfiguration;
+import com.bernardomg.example.security.extractor.ModelLoaderProperties;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,24 +22,23 @@ public final class DefaultEntitySourceFactory implements EntitySourceFactory {
     }
 
     @Override
-    public final EntitySource
-            connect(final ModelExtractorConfiguration config) {
+    public final EntitySource connect(final ModelLoaderProperties properties) {
         final Optional<EntitySourceBuilder> builder;
 
-        log.error("Searching code {} in {}", config.getSourceName(), builders);
+        log.error("Searching code {} in {}", properties.getSource(), builders);
         builder = builders.stream()
             .filter(b -> b.getSourceName()
-                .equals(config.getSourceName()))
+                .equals(properties.getSource()))
             .findFirst();
 
         if (builder.isEmpty()) {
             // TODO: Use concrete exception
-            log.error("No builder for {}", config.getSourceName());
+            log.error("No builder for {}", properties.getSource());
             throw new RuntimeException();
         }
 
         return builder.get()
-            .build(config);
+            .build(properties);
     }
 
 }

@@ -10,7 +10,7 @@ import com.bernardomg.example.security.adapter.keycloak.extractor.KeycloakUserRe
 import com.bernardomg.example.security.extractor.DefaultEntitySource;
 import com.bernardomg.example.security.extractor.EntityReader;
 import com.bernardomg.example.security.extractor.EntitySource;
-import com.bernardomg.example.security.extractor.ModelExtractorConfiguration;
+import com.bernardomg.example.security.extractor.ModelLoaderProperties;
 import com.bernardomg.example.security.extractor.factory.EntitySourceBuilder;
 
 public final class KeycloakEntitySourceBuilder implements EntitySourceBuilder {
@@ -20,18 +20,24 @@ public final class KeycloakEntitySourceBuilder implements EntitySourceBuilder {
     }
 
     @Override
-    public final EntitySource build(final ModelExtractorConfiguration config) {
+    public final EntitySource build(final ModelLoaderProperties properties) {
         final KeycloakApiClient client;
         final Collection<EntityReader<?>> readers;
 
-        client = new RestTemplateKeycloakApiClient(
-            config.getProperty("security.admin.clientId"),
-            config.getProperty("security.admin.username"),
-            config.getProperty("security.admin.password"),
-            config.getProperty("security.admin.realm"),
-            config.getProperty("security.clientId"),
-            config.getProperty("security.endpoint"),
-            config.getProperty("security.realm"));
+        client = new RestTemplateKeycloakApiClient(properties.getProperties()
+            .get("dahs.security.admin.clientId"),
+            properties.getProperties()
+                .get("dahs.security.admin.username"),
+            properties.getProperties()
+                .get("dahs.security.admin.password"),
+            properties.getProperties()
+                .get("dahs.security.admin.realm"),
+            properties.getProperties()
+                .get("dahs.security.clientId"),
+            properties.getProperties()
+                .get("dahs.security.endpoint"),
+            properties.getProperties()
+                .get("dahs.security.realm"));
 
         readers = new ArrayList<>();
         readers.add(new KeycloakUserReader(client));

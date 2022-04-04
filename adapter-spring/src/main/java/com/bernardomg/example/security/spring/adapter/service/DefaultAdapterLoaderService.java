@@ -2,11 +2,8 @@
 package com.bernardomg.example.security.spring.adapter.service;
 
 import com.bernardomg.example.security.extractor.ModelExtractor;
-import com.bernardomg.example.security.extractor.ModelExtractorConfiguration;
+import com.bernardomg.example.security.extractor.ModelLoaderProperties;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public final class DefaultAdapterLoaderService implements AdapterLoaderService {
 
     private final ModelExtractor extractor;
@@ -18,9 +15,8 @@ public final class DefaultAdapterLoaderService implements AdapterLoaderService {
     }
 
     @Override
-    public void load(final ModelExtractorConfiguration config) {
-        log.debug("Loading users");
-        extractor.extract(config);
+    public void load(final ModelLoaderProperties properties) {
+        extractor.extract(properties);
     }
 
 }

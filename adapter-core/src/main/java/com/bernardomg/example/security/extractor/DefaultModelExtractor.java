@@ -23,13 +23,13 @@ public final class DefaultModelExtractor implements ModelExtractor {
     }
 
     @Override
-    public final void extract(final ModelExtractorConfiguration config) {
+    public final void extract(final ModelLoaderProperties properties) {
         final EntitySource source;
         Collection read;
 
-        source = factory.connect(config);
+        source = factory.connect(properties);
 
-        log.debug("Reading from {}", config.getSourceName());
+        log.debug("Reading from {}", properties.getSource());
         for (final EntitySaver<?> saver : savers) {
             read = source.read(saver.supports());
             log.debug("Read {}: {}", saver.supports(), read);

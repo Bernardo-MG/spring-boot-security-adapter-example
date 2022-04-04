@@ -28,11 +28,11 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bernardomg.example.security.extractor.ModelExtractorConfiguration;
-import com.bernardomg.example.security.extractor.PropertiesRegistryModelExtractorConfiguration;
+import com.bernardomg.example.security.extractor.DefaultModelLoaderProperties;
 import com.bernardomg.example.security.properties.PropertiesRegistry;
 import com.bernardomg.example.security.spring.adapter.service.AdapterLoaderService;
 
@@ -42,15 +42,13 @@ import com.bernardomg.example.security.spring.adapter.service.AdapterLoaderServi
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @RestController
-@RequestMapping("/rest/loader")
+@RequestMapping("/rest/adapter/load")
 public class LoaderController {
-
-    private final ModelExtractorConfiguration config;
 
     /**
      * Example entity service.
      */
-    private final AdapterLoaderService        service;
+    private final AdapterLoaderService service;
 
     /**
      * Constructs a controller with the specified dependencies.
@@ -65,14 +63,12 @@ public class LoaderController {
 
         service = Objects.requireNonNull(userService,
             "Received a null pointer as service");
-
-        config = new PropertiesRegistryModelExtractorConfiguration("keycloak",
-            properties);
     }
 
-    @PutMapping("/load")
-    public void load() {
-        service.load(config);
+    @PutMapping
+    public void
+            load(@RequestBody final DefaultModelLoaderProperties properties) {
+        service.load(properties);
     }
 
 }

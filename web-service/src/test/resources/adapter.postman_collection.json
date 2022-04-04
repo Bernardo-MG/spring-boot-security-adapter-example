@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8b424643-ec16-4834-9906-97c52e01e4e1",
+		"_postman_id": "8207e32a-8433-4b21-8c8d-abb979e56b95",
 		"name": "Security Adapter",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -397,13 +397,21 @@
 				{
 					"name": "Load",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"source\":\"keycloak\",\r\n    \"properties\": {\r\n        \"security.admin.username\":\"admin\",\r\n        \"security.admin.password\":\"admin\",\r\n        \"security.admin.realm\":\"master\",\r\n        \"security.admin.clientId\":\"admin-cli\",\r\n        \"security.realm\":\"bmg\",\r\n        \"security.clientId\":\"testClient\",\r\n        \"security.endpoint\":\"http://host.docker.internal:8090/\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "/rest/loader/load",
+							"raw": "/adapter/load",
 							"path": [
-								"rest",
-								"loader",
+								"adapter",
 								"load"
 							]
 						}
