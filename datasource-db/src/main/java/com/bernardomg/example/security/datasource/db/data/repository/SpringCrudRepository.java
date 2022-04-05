@@ -3,8 +3,9 @@ package com.bernardomg.example.security.datasource.db.data.repository;
 
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -26,27 +27,25 @@ public final class SpringCrudRepository<T, P extends T, ID>
     }
 
     @Override
-    public void delete(final T data) {
+    public final void delete(final T data) {
         final P persistent;
 
-        persistent = persistentProvider.get();
-        BeanUtils.copyProperties(data, persistent);
+        persistent = toPersistent(data);
 
         wrapped.delete(persistent);
     }
 
     @Override
-    public Iterable<? extends T> readAll() {
+    public final Iterable<? extends T> readAll() {
         return wrapped.findAll();
     }
 
     @Override
-    public Optional<? extends T> readOne(final T sample) {
+    public final Optional<? extends T> readOne(final T sample) {
         final Example<P> example;
         final P persistent;
 
-        persistent = persistentProvider.get();
-        BeanUtils.copyProperties(sample, persistent);
+        persistent = toPersistent(sample);
 
         example = Example.of(persistent);
 
@@ -54,13 +53,31 @@ public final class SpringCrudRepository<T, P extends T, ID>
     }
 
     @Override
-    public T save(final T data) {
+    public final T save(final T data) {
         final P persistent;
 
-        persistent = persistentProvider.get();
-        BeanUtils.copyProperties(data, persistent);
+        persistent = toPersistent(data);
 
         return wrapped.save(persistent);
+    }
+
+    private final P toPersistent(final T data) {
+        final P persistent;
+
+        persistent = toPersistent(data);
+
+        return persistent;
+    }
+
+    @Override
+    public final Iterable<? extends T> saveAll(Iterable<T> data) {
+        final Iterable<P> persistent;
+
+        persistent = StreamSupport.stream(data.spliterator(), false)
+            .map(this::toPersistent)
+            .collect(Collectors.toList());
+
+        return wrapped.saveAll(persistent);
     }
 
 }

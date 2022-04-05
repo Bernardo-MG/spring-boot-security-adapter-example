@@ -28,8 +28,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.bernardomg.example.security.auth.model.User;
-import com.bernardomg.example.security.datasource.db.auth.model.repository.PersistentUserRepository;
-import com.bernardomg.example.security.datasource.db.extractor.PersistentUserEntitySaver;
+import com.bernardomg.example.security.data.repository.CrudRepository;
+import com.bernardomg.example.security.datasource.db.extractor.CrudRepositoryEntitySaver;
 import com.bernardomg.example.security.extractor.EntitySaver;
 
 @Configuration
@@ -39,10 +39,10 @@ public class DbAdapterConfiguration {
         super();
     }
 
-    @Bean("persistentUserEntitySaver")
+    @Bean("userEntitySaver")
     public EntitySaver<User> getPersistentUserEntitySaver(
-            final PersistentUserRepository userRepository) {
-        return new PersistentUserEntitySaver(userRepository);
+            final CrudRepository<User> repository) {
+        return new CrudRepositoryEntitySaver(repository);
     }
 
 }

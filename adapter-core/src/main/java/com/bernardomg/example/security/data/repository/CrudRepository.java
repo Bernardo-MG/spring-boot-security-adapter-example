@@ -13,4 +13,6 @@ public interface CrudRepository<T> {
 
     public T save(final T data);
 
+    public Iterable<? extends T> saveAll(final Iterable<T> data);
+
 }
