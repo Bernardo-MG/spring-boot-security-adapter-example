@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.bernardomg.example.security.auth.model.User;
 import com.bernardomg.example.security.data.repository.CrudRepository;
-import com.bernardomg.example.security.datasource.db.extractor.CrudRepositoryEntitySaver;
+import com.bernardomg.example.security.extractor.CrudRepositoryEntitySaver;
 import com.bernardomg.example.security.extractor.EntitySaver;
 
 @Configuration
@@ -42,7 +42,7 @@ public class DbAdapterConfiguration {
     @Bean("userEntitySaver")
     public EntitySaver<User> getPersistentUserEntitySaver(
             final CrudRepository<User> repository) {
-        return new CrudRepositoryEntitySaver(repository);
+        return new CrudRepositoryEntitySaver<>(repository, User.class);
     }
 
 }
