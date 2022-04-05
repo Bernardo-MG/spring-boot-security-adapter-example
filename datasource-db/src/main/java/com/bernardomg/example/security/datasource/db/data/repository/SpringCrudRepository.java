@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -61,14 +62,6 @@ public final class SpringCrudRepository<T, P extends T, ID>
         return wrapped.save(persistent);
     }
 
-    private final P toPersistent(final T data) {
-        final P persistent;
-
-        persistent = toPersistent(data);
-
-        return persistent;
-    }
-
     @Override
     public final Iterable<? extends T> saveAll(Iterable<T> data) {
         final Iterable<P> persistent;
@@ -78,6 +71,15 @@ public final class SpringCrudRepository<T, P extends T, ID>
             .collect(Collectors.toList());
 
         return wrapped.saveAll(persistent);
+    }
+
+    private final P toPersistent(final T data) {
+        final P persistent;
+
+        persistent = persistentProvider.get();
+        BeanUtils.copyProperties(data, persistent);
+
+        return persistent;
     }
 
 }
